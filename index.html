@@ -94,7 +94,7 @@ dialog::backdrop{background:#10281e99}
 @media(max-width:750px){aside{width:180px;padding:20px 14px}main{margin-left:180px;padding:20px 16px}h1{font-size:22px}.cards{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}}
 @media(max-width:600px){aside{position:static;width:auto;padding:16px}nav{margin-top:14px;display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}nav button{white-space:nowrap;width:auto;margin-bottom:0;font-size:12px;padding:9px 12px}aside footer{display:none}main{margin:0;padding:14px}.top{flex-direction:column;align-items:flex-start;gap:10px}.heading{flex-direction:column;align-items:flex-start;gap:10px}.card strong{font-size:18px}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}.scroll-info{display:none}}
 @media print{aside,.top,.notice,.heading button,.actions,.noprint,#toast,.scroll-buttons{display:none!important}main{margin:0;padding:0}.panel{border:0;padding:0;margin-bottom:14px}.cards{grid-template-columns:repeat(4,1fr)}body{background:white}th,td{font-size:9px;padding:5px}h1{font-size:20px}.tablewrap{border:0;overflow:visible!important}table{page-break-inside:auto}tr{page-break-inside:avoid}th{position:static}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}}
-</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script><aside><div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div><div class="sub">PRODUCTION FINANCE</div><nav id="nav"></nav><footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v0.8<br>Cloud sync aktif</footer></aside><main><div class="top"><span class="pill">● Film Rengasdengklok</span><div class="row"><span id="sync-indicator" class="mini">● Memeriksa...</span><span>Simulasi tampilan</span><select id="role" aria-label="Simulasi peran"></select></div></div><div class="notice"><b>Mode cloud v0.8.</b> Data tersinkron ke Cloudflare D1. Buka dari Telegram untuk autentikasi penuh. Data lokal sebagai cadangan otomatis.</div><div id="app"></div></main><dialog id="modal"></dialog><div id="toast" role="status"></div><script>
+</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script><aside><div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div><div class="sub">PRODUCTION FINANCE</div><nav id="nav"></nav><footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v0.8.1<br>Cloud sync aktif</footer></aside><main><div class="top"><span class="pill">● Film Rengasdengklok</span><div class="row"><span id="sync-indicator" class="mini">● Memeriksa...</span><span>Simulasi tampilan</span><select id="role" aria-label="Simulasi peran"></select></div></div><div class="notice"><b>Mode cloud v0.8.1.</b> Data tersinkron ke Cloudflare D1. Buka dari Telegram untuk autentikasi penuh. Data lokal sebagai cadangan otomatis.</div><div id="app"></div></main><dialog id="modal"></dialog><div id="toast" role="status"></div><script>
 'use strict';
 
 /* ============================================================
@@ -108,10 +108,16 @@ const API_CONFIG = {
 };
 
 function getInitData() {
-  if (window.Telegram?.WebApp?.initData) {
-    return window.Telegram.WebApp.initData;
-  }
+  try {
+    if (window.Telegram?.WebApp?.initData && window.Telegram.WebApp.initData.length > 0) {
+      return window.Telegram.WebApp.initData;
+    }
+  } catch (e) {}
   return null;
+}
+
+function isInTelegram() {
+  return !!getInitData();
 }
 
 async function apiFetch(path, options = {}) {
@@ -163,6 +169,13 @@ const ConnectionStatus = {
   lastError: null,
   listeners: [],
   async check() {
+    if (!isInTelegram()) {
+      this.online = false;
+      this.lastError = 'Tidak di Telegram (mode lokal)';
+      this.lastCheck = Date.now();
+      this.notify();
+      return false;
+    }
     try {
       await API.getMe();
       this.online = true;
@@ -190,7 +203,8 @@ const DEPTS=['Art Grip','Builder','Props','MockUp','Aging','Grafis'];
 const AKUN_COA_MAP={'Art Grip':'5200','Builder':'5210','Props':'5220','MockUp':'5230','Aging':'5240','Grafis':'5250'};
 let role='Manager Finance',page='Dashboard',filter='Semua';
 let accountingTab='coa',hrTab='employees',arTab='payable',bankTab='upload';
-const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand();}
+const tg=window.Telegram?.WebApp;
+if(tg){try{tg.ready();tg.expand();}catch(e){}}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>'Rp'+Number(Math.round(n||0)).toLocaleString('id-ID');
@@ -209,7 +223,7 @@ function download(name,data,type='text/plain'){const blob=new Blob([data],{type}
 function fmtDate(d){if(!d)return'—';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});}
 
 /* ============================================================
-   STORE LAYER (HYBRID: LOCAL + REMOTE)
+   STORE LAYER (HYBRID)
    ============================================================ */
 const Store=(()=>{
   const KEY='ichiflow_v3';
@@ -293,12 +307,14 @@ const Store=(()=>{
 
   async function saveRemote(){
     if(!API_CONFIG.enabled) return false;
+    if(!isInTelegram()) return false;
     try{
       await API.saveState(cache);
       localStorage.setItem(SYNC_KEY, new Date().toISOString());
       return true;
     }catch(e){
       console.warn('Save remote gagal:', e.message);
+      ConnectionStatus.lastError = e.message;
       return false;
     }
   }
@@ -325,16 +341,19 @@ const Store=(()=>{
 
   async function loadRemote(){
     if(!API_CONFIG.enabled) return false;
+    if(!isInTelegram()) return false;
     try{
       const res=await API.getState();
       if(res.state){
         cache=migrate(res.state);
         saveLocal();
-        console.log('State loaded dari server, version:', res.version);
+        console.log('[STORE] State loaded dari server, version:', res.version);
         return true;
+      } else {
+        console.log('[STORE] Server kosong, pakai lokal');
       }
     }catch(e){
-      console.warn('Load remote gagal:', e.message);
+      console.warn('[STORE] Load remote gagal:', e.message);
     }
     return false;
   }
@@ -613,7 +632,11 @@ function updateSyncIndicator(){
   if(!el) return;
   const lastSync=Store.getLastSync();
   const online=ConnectionStatus.online;
-  if(online===true){
+  if(!isInTelegram()){
+    el.textContent='● Mode lokal (bukan Telegram)';
+    el.style.color='#886211';
+    el.title='Buka dari Telegram untuk sinkronisasi cloud';
+  } else if(online===true){
     el.textContent='● Tersinkron';
     el.style.color='#226846';
     el.title=lastSync ? 'Terakhir: '+new Date(lastSync).toLocaleString('id-ID') : '';
@@ -632,7 +655,7 @@ function available(d){return sum(Store.state.flows.filter(x=>x.dept===d),x=>x.ty
 function center(){return sum(Store.state.flows,x=>x.type==='income'||x.type==='return'?x.amount:-x.amount);}
 
 /* ============================================================
-   TABLE BUILDER (tombol geser)
+   TABLE BUILDER
    ============================================================ */
 let _tableCounter=0;
 function table(headers,rows,opts){
@@ -904,24 +927,38 @@ function render(){
   if(page==='Pengaturan'){
     const lastSync=Store.getLastSync();
     const online=ConnectionStatus.online;
-    const onlineText=online===true?'✓ Online':online===false?'⚠ Offline (mode lokal)':'... Memeriksa';
-    const onlineColor=online===true?'good':online===false?'negative':'muted';
+    const inTg=isInTelegram();
+    let onlineText, onlineColor;
+    if(!inTg){
+      onlineText='● Mode Lokal (bukan dari Telegram)';
+      onlineColor='negative';
+    } else if(online===true){
+      onlineText='✓ Online - Tersinkron';
+      onlineColor='good';
+    } else if(online===false){
+      onlineText='⚠ Offline (mode lokal)';
+      onlineColor='negative';
+    } else {
+      onlineText='... Memeriksa';
+      onlineColor='muted';
+    }
     out=head('Pengaturan proyek','Data, sinkronisasi, dan integrasi.')
       +`<div class="panel">
         <h2>Status Koneksi</h2>
         <div class="row" style="margin-bottom:12px">
           <span class="${onlineColor}"><b>${onlineText}</b></span>
-          <button class="secondary" onclick="manualSync()">Sinkron Sekarang</button>
+          <button class="secondary" onclick="manualSync()" ${!inTg?'disabled':''}>Sinkron Sekarang</button>
           <button class="secondary" onclick="checkConnection()">Cek Koneksi</button>
-          <button class="secondary" onclick="showSyncLog()">Lihat Log Sync</button>
+          <button class="secondary" onclick="showSyncLog()" ${!inTg?'disabled':''}>Lihat Log Sync</button>
         </div>
         <div class="mini">Terakhir sinkron: ${lastSync?new Date(lastSync).toLocaleString('id-ID'):'Belum pernah'}</div>
+        ${!inTg?'<div class="note-box" style="margin-top:12px"><b>Catatan:</b> Aplikasi dibuka di luar Telegram. Data disimpan lokal. Untuk sinkronisasi cloud, buka dari Mini App Telegram.</div>':''}
         ${ConnectionStatus.lastError?`<div class="note-box" style="margin-top:12px">Error: ${esc(ConnectionStatus.lastError)}</div>`:''}
       </div>
       <div class="panel">
         <h2>Film Rengasdengklok</h2>
         <p>${DEPTS.join(' · ')} · Finance · Direktur</p>
-        <p>Versi v0.8 dengan integrasi Cloudflare Workers + D1.</p>
+        <p>Versi v0.8.1 dengan integrasi Cloudflare Workers + D1.</p>
         ${all()?`<div class="row">
           <button onclick="backup()">Unduh cadangan JSON</button>
           <label class="secondary">Pulihkan cadangan <input type="file" accept=".json" onchange="restore(this.files[0])"></label>
@@ -949,6 +986,9 @@ function render(){
    FUNGSI SYNC MANUAL
    ============================================================ */
 async function manualSync(){
+  if(!isInTelegram()){
+    return notice('Buka dari Telegram untuk sinkronisasi cloud');
+  }
   notice('Menyinkronkan...');
   const ok=await Store.saveRemote();
   if(ok){
@@ -964,6 +1004,13 @@ async function manualSync(){
 }
 
 async function checkConnection(){
+  if(!isInTelegram()){
+    ConnectionStatus.online=false;
+    ConnectionStatus.lastError='Tidak di Telegram (mode lokal)';
+    notice('Buka dari Telegram untuk cek koneksi cloud');
+    render();
+    return;
+  }
   notice('Memeriksa koneksi...');
   const online=await ConnectionStatus.check();
   if(online){
@@ -975,6 +1022,9 @@ async function checkConnection(){
 }
 
 async function showSyncLog(){
+  if(!isInTelegram()){
+    return notice('Buka dari Telegram untuk lihat log');
+  }
   try{
     const res=await API.getSyncLog();
     const log=res.log || [];
@@ -1955,15 +2005,45 @@ async function restore(file){
 }
 
 /* ============================================================
-   START
+   START — MENUNGGU TELEGRAM SIAP
    ============================================================ */
 (async function init(){
-  const loaded=await Store.loadRemote();
+  // 1. Tunggu Telegram WebApp ready
+  if(window.Telegram?.WebApp){
+    try{
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }catch(e){}
+  }
+  
+  // 2. Tunggu initData tersedia (max 2 detik)
+  const startTime = Date.now();
+  while(!getInitData() && (Date.now() - startTime) < 2000){
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  
+  const initData = getInitData();
+  console.log('[INIT] initData ada?', !!initData);
+  console.log('[INIT] initData length:', initData?.length || 0);
+  console.log('[INIT] user:', window.Telegram?.WebApp?.initDataUnsafe?.user?.first_name || 'unknown');
+  
+  // 3. Load state dari server (kalau di Telegram)
+  const loaded = await Store.loadRemote();
+  
+  // 4. Cek koneksi
   await ConnectionStatus.check();
+  
+  // 5. Render UI
   render();
   updateSyncIndicator();
+  
+  // 6. Notifikasi
   if(loaded){
     notice('Data tersinkron dari server');
+  } else if(!initData){
+    console.log('[INIT] Mode lokal — bukan dari Telegram');
+  } else {
+    console.log('[INIT] Server kosong atau tidak tersedia, pakai data lokal');
   }
 })();
 </script></body></html>
