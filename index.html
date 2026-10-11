@@ -94,9 +94,98 @@ dialog::backdrop{background:#10281e99}
 @media(max-width:750px){aside{width:180px;padding:20px 14px}main{margin-left:180px;padding:20px 16px}h1{font-size:22px}.cards{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}}
 @media(max-width:600px){aside{position:static;width:auto;padding:16px}nav{margin-top:14px;display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}nav button{white-space:nowrap;width:auto;margin-bottom:0;font-size:12px;padding:9px 12px}aside footer{display:none}main{margin:0;padding:14px}.top{flex-direction:column;align-items:flex-start;gap:10px}.heading{flex-direction:column;align-items:flex-start;gap:10px}.card strong{font-size:18px}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}.scroll-info{display:none}}
 @media print{aside,.top,.notice,.heading button,.actions,.noprint,#toast,.scroll-buttons{display:none!important}main{margin:0;padding:0}.panel{border:0;padding:0;margin-bottom:14px}.cards{grid-template-columns:repeat(4,1fr)}body{background:white}th,td{font-size:9px;padding:5px}h1{font-size:20px}.tablewrap{border:0;overflow:visible!important}table{page-break-inside:auto}tr{page-break-inside:avoid}th{position:static}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}}
-</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script><aside><div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div><div class="sub">PRODUCTION FINANCE</div><nav id="nav"></nav><footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v0.7<br>RAB akuntansi + tombol geser</footer></aside><main><div class="top"><span class="pill">● Film Rengasdengklok</span><div class="row"><span>Simulasi tampilan</span><select id="role" aria-label="Simulasi peran"></select></div></div><div class="notice"><b>Mode uji lokal v0.7.</b> RAB terintegrasi akuntansi + tombol geser tabel. Data disimpan di browser. Ekspor cadangan sebelum berpindah perangkat.</div><div id="app"></div></main><dialog id="modal"></dialog><div id="toast" role="status"></div><script>
+</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script><aside><div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div><div class="sub">PRODUCTION FINANCE</div><nav id="nav"></nav><footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v0.8<br>Cloud sync aktif</footer></aside><main><div class="top"><span class="pill">● Film Rengasdengklok</span><div class="row"><span id="sync-indicator" class="mini">● Memeriksa...</span><span>Simulasi tampilan</span><select id="role" aria-label="Simulasi peran"></select></div></div><div class="notice"><b>Mode cloud v0.8.</b> Data tersinkron ke Cloudflare D1. Buka dari Telegram untuk autentikasi penuh. Data lokal sebagai cadangan otomatis.</div><div id="app"></div></main><dialog id="modal"></dialog><div id="toast" role="status"></div><script>
 'use strict';
 
+/* ============================================================
+   KONFIGURASI API
+   ============================================================ */
+const API_CONFIG = {
+  baseUrl: 'https://ichiflow-worker.ichiflow.workers.dev',
+  projectKey: 'film-rengasdengklok',
+  timeout: 15000,
+  enabled: true,
+};
+
+function getInitData() {
+  if (window.Telegram?.WebApp?.initData) {
+    return window.Telegram.WebApp.initData;
+  }
+  return null;
+}
+
+async function apiFetch(path, options = {}) {
+  if (!API_CONFIG.enabled) throw new Error('API dinonaktifkan');
+  const initData = getInitData();
+  if (!initData) throw new Error('initData Telegram tidak tersedia. Buka dari Telegram.');
+  const url = API_CONFIG.baseUrl + path;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeout);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Telegram-Init-Data': initData,
+        ...(options.headers || {}),
+      },
+    });
+    clearTimeout(timeoutId);
+    if (!response.ok) {
+      const errBody = await response.json().catch(() => ({}));
+      throw new Error(errBody.error || `HTTP ${response.status}`);
+    }
+    return await response.json();
+  } catch (e) {
+    clearTimeout(timeoutId);
+    if (e.name === 'AbortError') throw new Error('Request timeout');
+    throw e;
+  }
+}
+
+const API = {
+  async getMe() { return await apiFetch('/api/me'); },
+  async getState() { return await apiFetch('/api/state'); },
+  async saveState(state) {
+    return await apiFetch('/api/state', {
+      method: 'PUT',
+      body: JSON.stringify({ state }),
+    });
+  },
+  async getSyncLog() { return await apiFetch('/api/sync-log'); },
+  async health() { return await apiFetch('/api/health'); },
+};
+
+const ConnectionStatus = {
+  online: null,
+  lastCheck: 0,
+  lastError: null,
+  listeners: [],
+  async check() {
+    try {
+      await API.getMe();
+      this.online = true;
+      this.lastError = null;
+    } catch (e) {
+      this.online = false;
+      this.lastError = e.message;
+    }
+    this.lastCheck = Date.now();
+    this.notify();
+    return this.online;
+  },
+  notify() {
+    for (const fn of this.listeners) {
+      try { fn(this.online, this.lastError); } catch {}
+    }
+  },
+  subscribe(fn) { this.listeners.push(fn); },
+};
+
+/* ============================================================
+   KONSTANTA & UTILITAS DASAR
+   ============================================================ */
 const DEPTS=['Art Grip','Builder','Props','MockUp','Aging','Grafis'];
 const AKUN_COA_MAP={'Art Grip':'5200','Builder':'5210','Props':'5220','MockUp':'5230','Aging':'5240','Grafis':'5250'};
 let role='Manager Finance',page='Dashboard',filter='Semua';
@@ -120,11 +209,15 @@ function download(name,data,type='text/plain'){const blob=new Blob([data],{type}
 function fmtDate(d){if(!d)return'—';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});}
 
 /* ============================================================
-   STORE
+   STORE LAYER (HYBRID: LOCAL + REMOTE)
    ============================================================ */
 const Store=(()=>{
   const KEY='ichiflow_v3';
+  const SYNC_KEY='ichiflow_last_sync';
   let cache=null;
+  let syncing=false;
+  let syncTimer=null;
+
   function blank(){return{
     version:3,project:'Film Rengasdengklok',
     accounts:[],requests:[],flows:[],expenses:[],
@@ -135,6 +228,7 @@ const Store=(()=>{
     activeRabId:null,rabArchives:[],
     counters:{journal:0,payable:0,receivable:0,asset:0,payroll:0,statement:0}
   }}
+
   function seedCOA(s){
     const base=[
       ['1100','Kas Pusat','asset','debit',null],['1110','Kas Departemen','asset','debit','1100'],
@@ -170,6 +264,7 @@ const Store=(()=>{
     const byCode=Object.fromEntries(s.accounts.map(a=>[a.code,a.id]));
     s.accounts.forEach(a=>{if(a.parentCode)a.parentId=byCode[a.parentCode];});
   }
+
   function migrate(c){
     if(!c.activeRabId)c.activeRabId=null;
     if(!c.rabArchives)c.rabArchives=[];
@@ -182,16 +277,77 @@ const Store=(()=>{
     c.version=3;
     return c;
   }
+
   function load(){
     if(cache)return cache;
     try{const raw=localStorage.getItem(KEY);cache=raw?JSON.parse(raw):blank();}
     catch{cache=blank();}
     cache=migrate(cache);
-    try{localStorage.setItem(KEY,JSON.stringify(cache));}catch{}
     return cache;
   }
-  function persist(){try{localStorage.setItem(KEY,JSON.stringify(cache));}catch{throw new Error('Penyimpanan browser penuh. Ekspor cadangan dan bersihkan data lama.');}}
-  return{get state(){return load();},commit(){persist();},reset(){cache=blank();seedCOA(cache);persist();},replace(next){cache=migrate(next);persist();}};
+
+  function saveLocal(){
+    try{localStorage.setItem(KEY,JSON.stringify(cache));}
+    catch{throw new Error('Penyimpanan browser penuh.');}
+  }
+
+  async function saveRemote(){
+    if(!API_CONFIG.enabled) return false;
+    try{
+      await API.saveState(cache);
+      localStorage.setItem(SYNC_KEY, new Date().toISOString());
+      return true;
+    }catch(e){
+      console.warn('Save remote gagal:', e.message);
+      return false;
+    }
+  }
+
+  function scheduleRemoteSync(){
+    clearTimeout(syncTimer);
+    syncTimer=setTimeout(async ()=>{
+      if(syncing) return;
+      syncing=true;
+      const ok=await saveRemote();
+      syncing=false;
+      if(ok){
+        ConnectionStatus.online=true;
+        ConnectionStatus.notify();
+      }
+      if(typeof updateSyncIndicator==='function') updateSyncIndicator();
+    }, 2000);
+  }
+
+  function persist(){
+    saveLocal();
+    scheduleRemoteSync();
+  }
+
+  async function loadRemote(){
+    if(!API_CONFIG.enabled) return false;
+    try{
+      const res=await API.getState();
+      if(res.state){
+        cache=migrate(res.state);
+        saveLocal();
+        console.log('State loaded dari server, version:', res.version);
+        return true;
+      }
+    }catch(e){
+      console.warn('Load remote gagal:', e.message);
+    }
+    return false;
+  }
+
+  return{
+    get state(){return load();},
+    commit(){persist();},
+    reset(){cache=blank();seedCOA(cache);saveLocal();scheduleRemoteSync();},
+    replace(next){cache=migrate(next);persist();},
+    loadRemote,
+    saveRemote,
+    getLastSync(){return localStorage.getItem(SYNC_KEY);},
+  };
 })();
 const state=Store.state;
 
@@ -449,13 +605,34 @@ function save(action){
   Store.state.audit.unshift({time:new Date().toISOString(),actor:role,action});
   try{Store.commit();}catch(e){notice(e.message);return;}
   render();
+  setTimeout(updateSyncIndicator, 100);
 }
+
+function updateSyncIndicator(){
+  const el=document.getElementById('sync-indicator');
+  if(!el) return;
+  const lastSync=Store.getLastSync();
+  const online=ConnectionStatus.online;
+  if(online===true){
+    el.textContent='● Tersinkron';
+    el.style.color='#226846';
+    el.title=lastSync ? 'Terakhir: '+new Date(lastSync).toLocaleString('id-ID') : '';
+  } else if(online===false){
+    el.textContent='● Offline (lokal)';
+    el.style.color='#886211';
+    el.title=ConnectionStatus.lastError || 'Tidak terhubung ke server';
+  } else {
+    el.textContent='● Memeriksa...';
+    el.style.color='#718077';
+  }
+}
+
 function mail(text){Store.state.mail.unshift({time:new Date().toISOString(),text});}
 function available(d){return sum(Store.state.flows.filter(x=>x.dept===d),x=>x.type==='allocation'?x.amount:x.type==='return'?-x.amount:0)-sum(Store.state.expenses.filter(x=>x.dept===d),x=>x.amount);}
 function center(){return sum(Store.state.flows,x=>x.type==='income'||x.type==='return'?x.amount:-x.amount);}
 
 /* ============================================================
-   TABLE BUILDER (dengan tombol geser)
+   TABLE BUILDER (tombol geser)
    ============================================================ */
 let _tableCounter=0;
 function table(headers,rows,opts){
@@ -496,7 +673,7 @@ function card(label,val,sub){return `<div class="card"><span>${label}</span><str
 function render(){
   if(tg?.initDataUnsafe?.user){
     const u=tg.initDataUnsafe.user;
-    const span=document.querySelector('.top .row span');
+    const span=document.querySelector('.top .row span:not(#sync-indicator)');
     const sel=document.querySelector('.top .row select');
     if(span)span.textContent='Telegram · '+(u.first_name||'Pengguna');
     if(sel)sel.style.display='none';
@@ -560,7 +737,7 @@ function render(){
       +(activeRab?'<button class="danger" onclick="deleteActiveRab()">Hapus Aktif</button>':'')
     );
     if(!activeRab){
-      html+='<div class="panel"><h2>Belum ada RAB aktif</h2><p>Upload file RAB Anda dalam format .xlsx atau .csv. Sistem akan membaca kolom akuntansi (Akun COA, Klasifikasi, Pajak, Termin, Kapitalisasi).</p><div class="note-box"><b>Format kolom yang dibutuhkan (16 kolom):</b><br>Adegan/Set, Lokasi & Atmosfer, Deskripsi Item, Departemen, Target, Sumber, Vendor, Akun COA, Klasifikasi, Pajak, Termin, Kapitalisasi, Harga Satuan, Qty, Total, Catatan Sumber</div></div>';
+      html+='<div class="panel"><h2>Belum ada RAB aktif</h2><p>Upload file RAB Anda dalam format .xlsx atau .csv.</p><div class="note-box"><b>Format kolom (16):</b><br>Adegan/Set, Lokasi, Deskripsi Item, Departemen, Target, Sumber, Vendor, Akun COA, Klasifikasi, Pajak, Termin, Kapitalisasi, Harga Satuan, Qty, Total, Catatan Sumber</div></div>';
     } else {
       html+='<div class="cards">'
         +card('Total RAB',sum(budgets,total),`${budgets.length} item`)
@@ -725,15 +902,96 @@ function render(){
   }
 
   if(page==='Pengaturan'){
-    out=head('Pengaturan proyek','Data uji, cadangan, dan kesiapan integrasi.')
-      +`<div class="panel"><h2>Film Rengasdengklok</h2><p>${DEPTS.join(' · ')} · Finance · Direktur</p><p>Versi offline v0.7 dengan RAB terintegrasi akuntansi + tombol geser tabel.</p>${all()?`<div class="row"><button onclick="backup()">Unduh cadangan JSON</button><label class="secondary">Pulihkan cadangan <input type="file" accept=".json" onchange="restore(this.files[0])"></label><button class="danger" onclick="if(confirm('Reset semua data lokal?')){Store.reset();render();notice('Data direset.')}">Reset data</button></div>`:''}</div>
+    const lastSync=Store.getLastSync();
+    const online=ConnectionStatus.online;
+    const onlineText=online===true?'✓ Online':online===false?'⚠ Offline (mode lokal)':'... Memeriksa';
+    const onlineColor=online===true?'good':online===false?'negative':'muted';
+    out=head('Pengaturan proyek','Data, sinkronisasi, dan integrasi.')
+      +`<div class="panel">
+        <h2>Status Koneksi</h2>
+        <div class="row" style="margin-bottom:12px">
+          <span class="${onlineColor}"><b>${onlineText}</b></span>
+          <button class="secondary" onclick="manualSync()">Sinkron Sekarang</button>
+          <button class="secondary" onclick="checkConnection()">Cek Koneksi</button>
+          <button class="secondary" onclick="showSyncLog()">Lihat Log Sync</button>
+        </div>
+        <div class="mini">Terakhir sinkron: ${lastSync?new Date(lastSync).toLocaleString('id-ID'):'Belum pernah'}</div>
+        ${ConnectionStatus.lastError?`<div class="note-box" style="margin-top:12px">Error: ${esc(ConnectionStatus.lastError)}</div>`:''}
+      </div>
+      <div class="panel">
+        <h2>Film Rengasdengklok</h2>
+        <p>${DEPTS.join(' · ')} · Finance · Direktur</p>
+        <p>Versi v0.8 dengan integrasi Cloudflare Workers + D1.</p>
+        ${all()?`<div class="row">
+          <button onclick="backup()">Unduh cadangan JSON</button>
+          <label class="secondary">Pulihkan cadangan <input type="file" accept=".json" onchange="restore(this.files[0])"></label>
+          <button class="danger" onclick="if(confirm('Reset semua data lokal?')){Store.reset();render();notice('Data direset.')}">Reset data</button>
+        </div>`:''}
+      </div>
       <div class="panel"><h2>Status pengembangan</h2>
-        ${['Akuntansi double-entry — aktif','RAB terintegrasi akuntansi — aktif','Manajemen arsip RAB — aktif','Auto-journal dari RAB — aktif','Hutang & piutang — aktif','Aset tetap & penyusutan — aktif','Payroll lengkap — aktif','Laporan pajak — aktif','Rekonsiliasi bank semi-otomatis — aktif','Tombol geser tabel — aktif','RBAC server-side — belum','Login Telegram — belum']
-          .map(s=>`<div class="lock">${s.includes('— aktif')?'✅':'🔒'} ${s}</div>`).join('')}</div>
+        ${[
+          'Akuntansi double-entry — aktif',
+          'RAB terintegrasi akuntansi — aktif',
+          'Tombol geser tabel — aktif',
+          'Sinkronisasi Cloudflare D1 — aktif',
+          'Autentikasi Telegram initData — aktif',
+          'RBAC server-side — belum',
+          'T-Mail online — belum'
+        ].map(s=>`<div class="lock">${s.includes('— aktif')?'✅':s.includes('— belum')?'🔒':'⚙️'} ${s}</div>`).join('')}
+      </div>
       ${all()?`<div class="panel"><h2>Jejak aktivitas lokal</h2>${table(['No','Waktu','Peran','Aktivitas'],Store.state.audit.slice(0,40).map((x,idx)=>`<tr><td class="no">${idx+1}</td><td>${new Date(x.time).toLocaleString('id-ID')}</td><td>${esc(x.actor)}</td><td>${esc(x.action)}</td></tr>`))}</div>`:''}`;
   }
 
   $('app').innerHTML=out;
+}
+
+/* ============================================================
+   FUNGSI SYNC MANUAL
+   ============================================================ */
+async function manualSync(){
+  notice('Menyinkronkan...');
+  const ok=await Store.saveRemote();
+  if(ok){
+    notice('Berhasil sinkron ke server');
+    ConnectionStatus.online=true;
+    ConnectionStatus.lastError=null;
+  } else {
+    notice('Gagal sinkron: '+(ConnectionStatus.lastError||'tidak diketahui'));
+    ConnectionStatus.online=false;
+  }
+  ConnectionStatus.notify();
+  render();
+}
+
+async function checkConnection(){
+  notice('Memeriksa koneksi...');
+  const online=await ConnectionStatus.check();
+  if(online){
+    notice('Koneksi OK');
+  } else {
+    notice('Offline: '+ConnectionStatus.lastError);
+  }
+  render();
+}
+
+async function showSyncLog(){
+  try{
+    const res=await API.getSyncLog();
+    const log=res.log || [];
+    if(!log.length){
+      return notice('Belum ada log sinkronisasi');
+    }
+    const rows=log.map((x,idx)=>`<tr>
+      <td class="no">${idx+1}</td>
+      <td>${esc(x.action)}</td>
+      <td>${x.payload_size?Math.round(x.payload_size/1024*10)/10+' KB':'—'}</td>
+      <td>${new Date(x.created_at+'Z').toLocaleString('id-ID')}</td>
+    </tr>`).join('');
+    $('modal').innerHTML=`<h2>Log Sinkronisasi</h2>${table(['No','Aksi','Ukuran','Waktu'],[rows],false)}<div class="row" style="margin-top:16px"><button class="secondary" onclick="$('modal').close()">Tutup</button></div>`;
+    $('modal').showModal();
+  }catch(e){
+    notice('Gagal ambil log: '+e.message);
+  }
 }
 
 /* ============================================================
@@ -801,7 +1059,7 @@ function renderPayrollRun(){
       <label>Periode <input type="month" value="${esc(period)}" onchange="window._payrollPeriod=this.value;render()"></label>
       <button onclick="runPayrollCalc()">Hitung Payroll</button>
     </div>
-    ${window._payrollDraft?payrollDraftTable():'<p class="mini">Klik "Hitung Payroll" untuk menghitung gaji karyawan aktif pada periode ini.</p>'}
+    ${window._payrollDraft?payrollDraftTable():'<p class="mini">Klik "Hitung Payroll" untuk menghitung gaji karyawan aktif.</p>'}
   </div>`;
 }
 function payrollDraftTable(){
@@ -853,7 +1111,7 @@ function renderTaxPage(){
     <h2 style="margin-top:22px">Rincian Transaksi Pajak</h2>
     ${table(['No','Tanggal','Jenis','Referensi','Keterangan','Jumlah'],
       summary.details.length?summary.details.map((d,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(d.date)}</td><td>${esc(d.type)}</td><td>${esc(d.ref)}</td><td>${esc(d.desc)}</td><td class="num">${money(d.amount)}</td></tr>`):['<tr><td colspan="6" class="empty">Tidak ada transaksi pajak periode ini.</td></tr>'])}
-    <div class="note-box" style="margin-top:16px"><b>Catatan:</b> Laporan ini adalah bantu hitung, bukan perhitungan pajak resmi. Verifikasi dengan konsultan pajak sebelum pelaporan.</div>
+    <div class="note-box" style="margin-top:16px"><b>Catatan:</b> Laporan ini adalah bantu hitung, bukan perhitungan pajak resmi.</div>
   </div>`;
 }
 
@@ -1045,7 +1303,7 @@ function parseRabCSV(text){
     price:header.findIndex(h=>/harga|price/.test(h)),qty:header.findIndex(h=>/qty|quantity/.test(h)),
     total:header.findIndex(h=>/^total/.test(h)),notes:header.findIndex(h=>/catatan|notes/.test(h))
   };
-  if(idx.item<0||idx.price<0||idx.qty<0)throw Error('Kolom wajib tidak ditemukan: Deskripsi Item, Harga Satuan, Qty.');
+  if(idx.item<0||idx.price<0||idx.qty<0)throw Error('Kolom wajib tidak ditemukan.');
   const items=[];
   for(let i=1;i<lines.length;i++){
     const cells=parseDelimitedLine(lines[i],sep);
@@ -1696,5 +1954,16 @@ async function restore(file){
   }catch(e){notice(e.message);}
 }
 
-render();
+/* ============================================================
+   START
+   ============================================================ */
+(async function init(){
+  const loaded=await Store.loadRemote();
+  await ConnectionStatus.check();
+  render();
+  updateSyncIndicator();
+  if(loaded){
+    notice('Data tersinkron dari server');
+  }
+})();
 </script></body></html>
