@@ -90,11 +90,84 @@ dialog::backdrop{background:#10281e99}
 .trend-col i{display:block;min-height:3px;border-radius:6px 6px 0 0;background:linear-gradient(#6c967e,#28594b);margin:0 auto 6px;max-width:44px}
 .metric{font-size:12px;color:var(--muted);margin-bottom:12px}
 .metric b{color:var(--ink)}
+
+/* Auth & Home Layout */
+.auth-page{position:fixed;inset:0;background:linear-gradient(135deg,#173c32 0%,#28594b 100%);color:white;display:flex;align-items:center;justify-content:center;padding:24px;z-index:100;overflow-y:auto}
+.auth-card{background:white;color:var(--ink);border-radius:20px;padding:32px 26px;max-width:420px;width:100%;box-shadow:0 30px 100px #0005}
+.auth-logo{font:700 32px Georgia;color:var(--green);text-align:center;margin-bottom:6px}
+.auth-logo span{color:#cfb47e}
+.auth-tag{text-align:center;font-size:11px;letter-spacing:3px;color:var(--muted);margin-bottom:26px}
+.auth-title{font:600 20px system-ui;margin:0 0 8px;text-align:center}
+.auth-desc{color:var(--muted);font-size:13px;text-align:center;margin-bottom:22px;line-height:1.55}
+.auth-card label{font-size:12px;color:#52645b;margin-bottom:4px;display:block;font-weight:600}
+.auth-card input,.auth-card select{width:100%;padding:12px;border:1.5px solid #cbd5ca;border-radius:9px;font-size:14px;background:white;color:var(--ink);margin-bottom:14px}
+.auth-card input:focus,.auth-card select:focus{outline:none;border-color:var(--green)}
+.auth-card button{width:100%;padding:13px;font-size:14px;font-weight:600;border-radius:9px;margin-top:6px}
+.auth-error{background:#f6dcd9;color:#7a2a23;padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:14px;display:none}
+.auth-error.show{display:block}
+.auth-info{background:#e8f4ec;color:#28594b;padding:12px 14px;border-radius:9px;font-size:12px;line-height:1.55;margin-bottom:18px;border-left:4px solid var(--green)}
+.pin-input{display:flex;gap:10px;justify-content:center;margin:20px 0}
+.pin-input input{width:52px;height:60px;text-align:center;font-size:24px;font-weight:700;padding:0;border-radius:12px;border:2px solid #cbd5ca;background:#f9fbf7;color:var(--green)}
+.pin-input input:focus{outline:none;border-color:var(--green);background:white;box-shadow:0 0 0 3px #28594b20}
+.pin-input input.filled{border-color:var(--green);background:white}
+.auth-header{text-align:center;margin-bottom:26px}
+.auth-header .logo{font:700 34px Georgia;color:white;letter-spacing:-1px}
+.auth-header .logo span{color:#cfb47e}
+.auth-header .sub{font-size:10px;letter-spacing:3px;color:#bdcfc5;margin-top:4px}
+.home-page{min-height:100vh;background:linear-gradient(180deg,#173c32 0%,#0f2a22 100%);color:white;padding:0;overflow-y:auto;position:fixed;inset:0;z-index:100}
+.home-header{padding:32px 26px 20px;max-width:900px;margin:0 auto}
+.home-header h1{font:600 26px system-ui;margin:0 0 6px;color:white}
+.home-header p{color:#bdcfc5;font-size:13px;margin:0}
+.home-body{padding:0 26px 40px;max-width:900px;margin:0 auto}
+.project-card{background:white;color:var(--ink);border-radius:16px;overflow:hidden;margin-bottom:16px;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 20px #0003}
+.project-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px #0005}
+.project-poster{height:160px;background:linear-gradient(135deg,#28594b,#173c32);display:flex;align-items:center;justify-content:center;color:#cfb47e;font:700 32px Georgia;letter-spacing:2px;position:relative;overflow:hidden}
+.project-poster::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,#ffffff10,transparent 60%)}
+.project-info{padding:18px 20px}
+.project-info h3{margin:0 0 6px;font:600 17px system-ui}
+.project-info p{margin:0 0 12px;color:var(--muted);font-size:12.5px}
+.project-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:11px}
+.project-meta span{background:#eef1e8;padding:4px 9px;border-radius:5px;color:#45574e}
+.btn-join{background:transparent;border:2px dashed #ffffff30;color:#bdcfc5;padding:16px;width:100%;border-radius:14px;font-size:13px;cursor:pointer;transition:all .15s;margin-bottom:20px}
+.btn-join:hover{border-color:#cfb47e;color:#cfb47e;background:#cfb47e10}
+.logout-link{display:inline-block;margin-top:20px;color:#bdcfc5;font-size:12px;text-decoration:underline;cursor:pointer}
+
 @media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}.heading{flex-direction:column;align-items:stretch}.heading .row{justify-content:flex-start}}
 @media(max-width:750px){aside{width:180px;padding:20px 14px}main{margin-left:180px;padding:20px 16px}h1{font-size:22px}.cards{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}}
-@media(max-width:600px){aside{position:static;width:auto;padding:16px}nav{margin-top:14px;display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}nav button{white-space:nowrap;width:auto;margin-bottom:0;font-size:12px;padding:9px 12px}aside footer{display:none}main{margin:0;padding:14px}.top{flex-direction:column;align-items:flex-start;gap:10px}.heading{flex-direction:column;align-items:flex-start;gap:10px}.card strong{font-size:18px}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}.scroll-info{display:none}}
+@media(max-width:600px){aside{position:static;width:auto;padding:16px}nav{margin-top:14px;display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}nav button{white-space:nowrap;width:auto;margin-bottom:0;font-size:12px;padding:9px 12px}aside footer{display:none}main{margin:0;padding:14px}.top{flex-direction:column;align-items:flex-start;gap:10px}.heading{flex-direction:column;align-items:flex-start;gap:10px}.card strong{font-size:18px}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}.scroll-info{display:none}.auth-card{padding:24px 20px}}
 @media print{aside,.top,.notice,.heading button,.actions,.noprint,#toast,.scroll-buttons{display:none!important}main{margin:0;padding:0}.panel{border:0;padding:0;margin-bottom:14px}.cards{grid-template-columns:repeat(4,1fr)}body{background:white}th,td{font-size:9px;padding:5px}h1{font-size:20px}.tablewrap{border:0;overflow:visible!important}table{page-break-inside:auto}tr{page-break-inside:avoid}th{position:static}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){position:static}}
-</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script><aside><div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div><div class="sub">PRODUCTION FINANCE</div><nav id="nav"></nav><footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v0.9<br>Multi-device sync</footer></aside><main><div class="top"><span class="pill">● Film Rengasdengklok</span><div class="row"><span id="sync-indicator" class="mini">● Memeriksa...</span><span>Simulasi tampilan</span><select id="role" aria-label="Simulasi peran"></select></div></div><div class="notice"><b>Mode cloud v0.9.</b> Data tersinkron ke Cloudflare D1 dengan merge anti-hilang. Buka dari Telegram untuk autentikasi penuh.</div><div id="app"></div></main><dialog id="modal"></dialog><div id="toast" role="status"></div><script>
+</style><body><script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- AUTH & HOME LAYER -->
+<div id="auth-layer"></div>
+
+<!-- MAIN APP LAYER -->
+<div id="app-layer" style="display:none">
+<aside>
+  <div class="brand">IchiFlow<span style="color:#cfb47e">.</span></div>
+  <div class="sub">PRODUCTION FINANCE</div>
+  <nav id="nav"></nav>
+  <footer>FILM RENGASDENGKLOK<br>Ruang kerja produksi · v1.1<br>Multi-device sync</footer>
+</aside>
+<main>
+  <div class="top">
+    <span class="pill">● <span id="project-title">Film Rengasdengklok</span></span>
+    <div class="row">
+      <span id="sync-indicator" class="mini">● Memeriksa...</span>
+      <span>Simulasi tampilan</span>
+      <select id="role" aria-label="Simulasi peran"></select>
+      <button class="secondary" style="padding:7px 12px;font-size:12px" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+  <div class="notice"><b>Mode cloud v1.1.</b> Data tersinkron ke Cloudflare D1. Klik 🏠 Home untuk ganti proyek.</div>
+  <div id="app"></div>
+</main>
+</div>
+
+<dialog id="modal"></dialog>
+<div id="toast" role="status"></div>
+
+<script>
 'use strict';
 
 /* ============================================================
@@ -107,6 +180,18 @@ const API_CONFIG = {
   enabled: true,
 };
 
+const Session = {
+  user: null,
+  membership: null,
+  memberships: [],
+  projects: [],
+  activeProjectKey: 'film-rengasdengklok',
+  isUnlocked: false,
+  lastActivity: Date.now(),
+  idleTimeout: 15 * 60 * 1000, // 15 menit
+  page: 'init',
+};
+
 function getInitData() {
   try {
     if (window.Telegram?.WebApp?.initData && window.Telegram.WebApp.initData.length > 0) {
@@ -116,9 +201,7 @@ function getInitData() {
   return null;
 }
 
-function isInTelegram() {
-  return !!getInitData();
-}
+function isInTelegram() { return !!getInitData(); }
 
 async function apiFetch(path, options = {}) {
   if (!API_CONFIG.enabled) throw new Error('API dinonaktifkan');
@@ -138,11 +221,9 @@ async function apiFetch(path, options = {}) {
       },
     });
     clearTimeout(timeoutId);
-    if (!response.ok) {
-      const errBody = await response.json().catch(() => ({}));
-      throw new Error(errBody.error || `HTTP ${response.status}`);
-    }
-    return await response.json();
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+    return data;
   } catch (e) {
     clearTimeout(timeoutId);
     if (e.name === 'AbortError') throw new Error('Request timeout');
@@ -153,46 +234,25 @@ async function apiFetch(path, options = {}) {
 const API = {
   async getMe() { return await apiFetch('/api/me'); },
   async getState() { return await apiFetch('/api/state'); },
-  async saveState(state) {
-    return await apiFetch('/api/state', {
-      method: 'PUT',
-      body: JSON.stringify({ state }),
-    });
-  },
+  async saveState(state) { return await apiFetch('/api/state', { method: 'PUT', body: JSON.stringify({ state }) }); },
   async getSyncLog() { return await apiFetch('/api/sync-log'); },
-  async health() { return await apiFetch('/api/health'); },
+  async getMemberships() { return await apiFetch('/api/memberships'); },
+  async getProjects() { return await apiFetch('/api/projects'); },
+  async register(data) { return await apiFetch('/api/register', { method: 'POST', body: JSON.stringify(data) }); },
+  async verifyPin(pin, projectKey) { return await apiFetch('/api/verify-pin', { method: 'POST', body: JSON.stringify({ pin, projectKey }) }); },
+  async changePin(oldPin, newPin, projectKey) { return await apiFetch('/api/change-pin', { method: 'POST', body: JSON.stringify({ oldPin, newPin, projectKey }) }); },
+  async sendFile(filename, mimeType, base64, caption) { return await apiFetch('/api/send-file', { method: 'POST', body: JSON.stringify({ filename, mimeType, base64, caption }) }); }
 };
 
 const ConnectionStatus = {
-  online: null,
-  lastCheck: 0,
-  lastError: null,
-  listeners: [],
+  online: null, lastCheck: 0, lastError: null, listeners: [],
   async check() {
-    if (!isInTelegram()) {
-      this.online = false;
-      this.lastError = 'Tidak di Telegram (mode lokal)';
-      this.lastCheck = Date.now();
-      this.notify();
-      return false;
-    }
-    try {
-      await API.getMe();
-      this.online = true;
-      this.lastError = null;
-    } catch (e) {
-      this.online = false;
-      this.lastError = e.message;
-    }
-    this.lastCheck = Date.now();
-    this.notify();
-    return this.online;
+    if (!isInTelegram()) { this.online = false; this.lastError = 'Mode Lokal'; this.notify(); return false; }
+    try { await API.getMe(); this.online = true; this.lastError = null; }
+    catch (e) { this.online = false; this.lastError = e.message; }
+    this.lastCheck = Date.now(); this.notify(); return this.online;
   },
-  notify() {
-    for (const fn of this.listeners) {
-      try { fn(this.online, this.lastError); } catch {}
-    }
-  },
+  notify() { for (const fn of this.listeners) { try { fn(this.online, this.lastError); } catch {} } },
   subscribe(fn) { this.listeners.push(fn); },
 };
 
@@ -217,7 +277,7 @@ const scoped=rows=>rows.filter(x=>dept()==='Semua'||x.dept===dept());
 const sum=(a,fn)=>a.reduce((s,x)=>s+fn(x),0);
 const total=x=>Math.round((x.qty||0)*(x.price||0));
 const opts=(xs,v)=>xs.map(x=>`<option ${x===v?'selected':''}>${esc(x)}</option>`).join('');
-const tag=(s,cls)=>`<span class="tag ${cls||(['Disetujui','Diverifikasi','Selesai','posted','Lunas','Cocok','Dibayar','Aktif'].includes(s)?'ok':['Ditolak','Batal','Tidak Cocok'].includes(s)?'bad':'wait')}">${esc(s)}</span>`;
+const tag=(s,cls)=>`<span class="tag ${cls||(['Disetujui','Diverifikasi','Selesai','posted','Lunas','Cocok','Dibayar','Aktif','approved','manager'].includes(s)?'ok':['Ditolak','Batal','Tidak Cocok','declined'].includes(s)?'bad':'wait')}">${esc(s)}</span>`;
 function notice(s){$('toast').textContent=s;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',4000);}
 function download(name,data,type='text/plain'){const blob=new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function fmtDate(d){if(!d)return'—';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});}
@@ -232,7 +292,6 @@ const Store=(()=>{
   let syncing=false;
   let syncTimer=null;
   let remoteLoaded=false;
-  let pendingSyncAfterLoad=false;
 
   function blank(){return{
     version:3,project:'Film Rengasdengklok',
@@ -327,15 +386,12 @@ const Store=(()=>{
     merged.mail = mergeArray(local.mail, remote.mail);
     merged.depreciationRuns = mergeArray(local.depreciationRuns, remote.depreciationRuns);
     merged.taxRecords = mergeArray(local.taxRecords, remote.taxRecords);
-
     const rabMap = new Map();
     for (const r of (local.rabArchives||[])) if(r?.id) rabMap.set(r.id, JSON.parse(JSON.stringify(r)));
     for (const r of (remote.rabArchives||[])) {
       if(r?.id) {
         const existing = rabMap.get(r.id);
-        if(existing){
-          r.items = mergeArray(existing.items, r.items);
-        }
+        if(existing) r.items = mergeArray(existing.items, r.items);
         rabMap.set(r.id, r);
       }
     }
@@ -360,28 +416,15 @@ const Store=(()=>{
     return cache;
   }
 
-  function saveLocal(){
-    try{localStorage.setItem(KEY,JSON.stringify(cache));}
-    catch{throw new Error('Penyimpanan browser penuh.');}
-  }
+  function saveLocal(){ try{localStorage.setItem(KEY,JSON.stringify(cache));} catch{throw new Error('Penyimpanan browser penuh.');} }
 
   async function saveRemote(){
-    if(!API_CONFIG.enabled) return false;
-    if(!isInTelegram()) return false;
-    if(!remoteLoaded){
-      console.warn('[STORE] Skip saveRemote — belum load dari server');
-      pendingSyncAfterLoad = true;
-      return false;
-    }
+    if(!API_CONFIG.enabled || !isInTelegram() || !remoteLoaded) return false;
     try{
       await API.saveState(cache);
       localStorage.setItem(SYNC_KEY, new Date().toISOString());
       return true;
-    }catch(e){
-      console.warn('[STORE] Save remote gagal:', e.message);
-      ConnectionStatus.lastError = e.message;
-      return false;
-    }
+    }catch(e){ console.warn('[STORE] Save remote gagal:', e.message); ConnectionStatus.lastError = e.message; return false; }
   }
 
   function scheduleRemoteSync(){
@@ -391,99 +434,43 @@ const Store=(()=>{
       syncing=true;
       const ok=await saveRemote();
       syncing=false;
-      if(ok){
-        ConnectionStatus.online=true;
-        ConnectionStatus.notify();
-      }
+      if(ok){ ConnectionStatus.online=true; ConnectionStatus.notify(); }
       if(typeof updateSyncIndicator==='function') updateSyncIndicator();
     }, 2000);
   }
 
-  function persist(){
-    saveLocal();
-    scheduleRemoteSync();
-  }
+  function persist(){ saveLocal(); scheduleRemoteSync(); }
 
   async function loadRemote(){
-    if(!API_CONFIG.enabled) return false;
-    if(!isInTelegram()) {
-      console.log('[STORE] Bukan di Telegram, skip loadRemote');
-      return false;
-    }
+    if(!API_CONFIG.enabled || !isInTelegram()) return false;
     try{
       const res=await API.getState();
       const localState = load();
-      
       if(res.state){
-        const serverVersion = res.version || 0;
         const serverCount = countData(res.state);
         const localCount = countData(localState);
-        
-        console.log(`[STORE] Server: v${serverVersion}, ${serverCount} item`);
-        console.log(`[STORE] Local: ${localCount} item`);
-        
         if(localCount > 0 && localCount > serverCount){
-          console.log('[STORE] Lokal lebih banyak, MERGE');
-          cache = mergeStates(localState, res.state);
-          saveLocal();
-          remoteLoaded = true;
-          try {
-            await API.saveState(cache);
-            console.log('[STORE] Merged state dikirim ke server');
-          } catch(e) {
-            console.warn('[STORE] Gagal kirim merged state:', e.message);
-          }
+          cache = mergeStates(localState, res.state); saveLocal(); remoteLoaded = true;
+          try { await API.saveState(cache); } catch(e) {}
         } else if(serverCount > 0){
-          console.log('[STORE] Pakai state dari server');
-          cache = migrate(res.state);
-          saveLocal();
-          remoteLoaded = true;
+          cache = migrate(res.state); saveLocal(); remoteLoaded = true;
         } else if(localCount > 0){
-          console.log('[STORE] Server kosong isi, upload dari lokal');
-          cache = localState;
-          remoteLoaded = true;
-          try {
-            await API.saveState(cache);
-            console.log('[STORE] State lokal di-upload ke server');
-          } catch(e) {
-            console.warn('[STORE] Gagal upload:', e.message);
-          }
-        } else {
-          console.log('[STORE] Kedua sisi kosong');
-          remoteLoaded = true;
-        }
+          cache = localState; remoteLoaded = true;
+          try { await API.saveState(cache); } catch(e) {}
+        } else { remoteLoaded = true; }
         return true;
       } else {
-        console.log('[STORE] Server kosong untuk user ini');
         remoteLoaded = true;
-        const localCount = countData(localState);
-        if(localCount > 0){
-          try {
-            await API.saveState(localState);
-            console.log('[STORE] Initial upload ke server');
-          } catch(e) {
-            console.warn('[STORE] Gagal initial upload:', e.message);
-          }
-        }
+        if(countData(localState) > 0){ try { await API.saveState(localState); } catch(e) {} }
         return false;
       }
-    }catch(e){
-      console.warn('[STORE] Load remote gagal:', e.message);
-      ConnectionStatus.lastError = e.message;
-      remoteLoaded = true;
-    }
+    }catch(e){ console.warn('[STORE] Load remote gagal:', e.message); remoteLoaded = true; }
     return false;
   }
 
   return{
-    get state(){return load();},
-    commit(){persist();},
-    reset(){cache=blank();seedCOA(cache);saveLocal();scheduleRemoteSync();},
-    replace(next){cache=migrate(next);persist();},
-    loadRemote,
-    saveRemote,
-    isRemoteLoaded(){return remoteLoaded;},
-    getLastSync(){return localStorage.getItem(SYNC_KEY);},
+    get state(){return load();}, commit(){persist();}, reset(){cache=blank();seedCOA(cache);saveLocal();scheduleRemoteSync();},
+    replace(next){cache=migrate(next);persist();}, loadRemote, saveRemote, isRemoteLoaded(){return remoteLoaded;}, getLastSync(){return localStorage.getItem(SYNC_KEY);},
   };
 })();
 const state=Store.state;
@@ -749,25 +736,16 @@ function updateSyncIndicator(){
   const el=document.getElementById('sync-indicator');
   if(!el) return;
   const lastSync=Store.getLastSync();
-  const online=ConnectionStatus.online;
+  const online=(Session.membership !== null);
   if(!isInTelegram()){
-    el.textContent='● Mode lokal (bukan Telegram)';
-    el.style.color='#886211';
-    el.title='Buka dari Telegram untuk sinkronisasi cloud';
+    el.textContent='● Mode lokal'; el.style.color='#886211';
   } else if(!Store.isRemoteLoaded()){
-    el.textContent='● Memuat data server...';
-    el.style.color='#886211';
-  } else if(online===true){
-    el.textContent='● Tersinkron';
-    el.style.color='#226846';
+    el.textContent='● Memuat data...'; el.style.color='#886211';
+  } else if(online){
+    el.textContent='● Tersinkron'; el.style.color='#226846';
     el.title=lastSync ? 'Terakhir: '+new Date(lastSync).toLocaleString('id-ID') : '';
-  } else if(online===false){
-    el.textContent='● Offline (lokal)';
-    el.style.color='#886211';
-    el.title=ConnectionStatus.lastError || 'Tidak terhubung ke server';
   } else {
-    el.textContent='● Memeriksa...';
-    el.style.color='#718077';
+    el.textContent='● Offline (lokal)'; el.style.color='#886211';
   }
 }
 
@@ -807,14 +785,199 @@ $('role').innerHTML=opts(['Manager Finance','Direktur',...DEPTS],role);
 $('role').onchange=e=>{role=e.target.value;filter='Semua';render();};
 function go(p){page=p;render();}
 function changeFilter(v){filter=v;render();}
-function head(title,desc,actions=''){return `<div class="heading"><div><div class="sub">FILM RENGASDENGKLOK</div><h1>${title}</h1><p>${desc}</p></div><div class="row">${actions}</div></div>`;}
+function head(title,desc,actions=''){return `<div class="heading"><div><div class="sub">${esc(Session.activeProjectKey||'PROYEK').toUpperCase()}</div><h1>${title}</h1><p>${desc}</p></div><div class="row">${actions}</div></div>`;}
 function selector(){return all()?`<select class="noprint" onchange="changeFilter(this.value)" aria-label="Filter departemen">${opts(['Semua',...DEPTS],filter)}</select>`:'';}
 function card(label,val,sub){return `<div class="card"><span>${label}</span><strong>${money(val)}</strong><small>${sub}</small></div>`;}
 
 /* ============================================================
-   RENDER
+   AUTH & HOME PAGES (Ditambahkan)
+   ============================================================ */
+function showAuthLayer(html) { $('auth-layer').innerHTML = html; $('auth-layer').style.display = 'block'; $('app-layer').style.display = 'none'; }
+function hideAuthLayer() { $('auth-layer').style.display = 'none'; $('app-layer').style.display = 'block'; }
+
+function renderRegister() {
+  Session.page = 'register';
+  const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user || {};
+  const defaultName = [tgUser.first_name, tgUser.last_name].filter(Boolean).join(' ');
+  showAuthLayer(`<div class="auth-page"><div class="auth-card"><div class="auth-logo">IchiFlow<span>.</span></div><div class="auth-tag">PRODUCTION FINANCE</div><h2 class="auth-title">Daftar Akun</h2><p class="auth-desc">Isi data untuk bergabung ke proyek Film Rengasdengklok</p><div id="reg-error" class="auth-error"></div><label>Nama Lengkap</label><input id="reg-name" type="text" value="${esc(defaultName)}" placeholder="Nama lengkap Anda" maxlength="80"><label>Departemen</label><select id="reg-dept">${DEPTS.map(d => `<option value="${d}">${d}</option>`).join('')}</select><label>Jabatan (opsional)</label><input id="reg-position" type="text" placeholder="Contoh: Art Director" maxlength="60"><label>Nomor HP (opsional)</label><input id="reg-phone" type="tel" placeholder="08xxxxxxxxxx" maxlength="20"><label>Kode Undangan Proyek</label><input id="reg-invite" type="text" placeholder="6 digit angka" maxlength="20" inputmode="numeric"><label>PIN Aplikasi (6 digit angka)</label><input id="reg-pin" type="password" placeholder="••••••" maxlength="6" inputmode="numeric"><label>Konfirmasi PIN</label><input id="reg-pin2" type="password" placeholder="••••••" maxlength="6" inputmode="numeric"><div class="auth-info" style="margin-top:16px"><b>Info:</b> PIN ini untuk membuka aplikasi di HP Anda. Jangan berikan kepada siapa pun.</div><button onclick="submitRegister()" id="reg-submit">Daftar Sekarang</button><button class="secondary" onclick="checkMembershipStatus()" style="margin-top:10px">Sudah punya akun? Cek status</button></div></div>`);
+}
+
+async function submitRegister() {
+  const name = $('reg-name').value.trim();
+  const department = $('reg-dept').value;
+  const position = $('reg-position').value.trim();
+  const phone = $('reg-phone').value.trim();
+  const inviteCode = $('reg-invite').value.trim();
+  const pin = $('reg-pin').value.trim();
+  const pin2 = $('reg-pin2').value.trim();
+  const errEl = $('reg-error'); errEl.classList.remove('show');
+  const showErr = (msg) => { errEl.textContent = msg; errEl.classList.add('show'); };
+  if (name.length < 2) return showErr('Nama minimal 2 karakter');
+  if (!inviteCode) return showErr('Kode undangan wajib diisi');
+  if (!/^\d{6}$/.test(pin)) return showErr('PIN harus 6 digit angka');
+  if (pin !== pin2) return showErr('PIN dan konfirmasi tidak sama');
+  const btn = $('reg-submit'); btn.disabled = true; btn.textContent = 'Mendaftar...';
+  try {
+    await API.register({ displayName: name, department, position, phone, pin, inviteCode });
+    Session.user = window.Telegram?.WebApp?.initDataUnsafe?.user || {};
+    Session.membership = { status: 'pending', department };
+    notice('Pendaftaran berhasil!'); renderWaiting();
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Daftar Sekarang'; showErr(e.message);
+  }
+}
+
+function renderWaiting() {
+  Session.page = 'waiting';
+  const name = Session.user?.first_name || 'Pengguna';
+  showAuthLayer(`<div class="auth-page"><div class="auth-card"><div class="auth-logo">IchiFlow<span>.</span></div><div class="auth-tag">PRODUCTION FINANCE</div><div style="text-align:center;font-size:48px;margin:20px 0">⏳</div><h2 class="auth-title">Menunggu Persetujuan</h2><p class="auth-desc">Halo <b>${esc(name)}</b>,<br>Pendaftaran Anda sedang diperiksa oleh Manager Finance.<br>Anda akan mendapat notifikasi dari bot setelah disetujui.</p><div class="auth-info"><b>Yang bisa Anda lakukan:</b><br>• Hubungi Manager Finance Anda<br>• Klik tombol "Cek Status" di bawah setelah disetujui</div><button onclick="checkMembershipStatus()" id="wait-check">🔄 Cek Status Sekarang</button><button class="secondary" onclick="showContactInfo()" style="margin-top:10px">📞 Hubungi Manager</button></div></div>`);
+}
+
+async function checkMembershipStatus() {
+  try {
+    const res = await API.getMemberships();
+    const memberships = res.memberships || [];
+    const approved = memberships.find(m => m.status === 'approved');
+    if (approved) {
+      Session.memberships = memberships;
+      notice('Akun Anda sudah disetujui!');
+      return await loadProjectsAndShowHome();
+    }
+    const pending = memberships.find(m => m.status === 'pending');
+    if (pending) {
+      if (Session.page !== 'waiting') { Session.user = window.Telegram?.WebApp?.initDataUnsafe?.user || {}; Session.membership = pending; renderWaiting(); }
+      notice('Masih menunggu approval'); return;
+    }
+    const declined = memberships.find(m => m.status === 'declined');
+    if (declined) {
+      showAuthLayer(`<div class="auth-page"><div class="auth-card"><div class="auth-logo">IchiFlow<span>.</span></div><div style="text-align:center;font-size:48px;margin:20px 0">❌</div><h2 class="auth-title">Pendaftaran Ditolak</h2><p class="auth-desc">Pendaftaran Anda ditolak oleh Manager Finance. Hubungi Manager untuk info lebih lanjut.</p><button onclick="location.reload()">Coba Lagi</button></div></div>`); return;
+    }
+    renderRegister();
+  } catch (e) { notice('Gagal cek status: ' + e.message); }
+}
+
+function showContactInfo() {
+  $('modal').innerHTML = `<h2>Hubungi Manager Finance</h2><p>Telegram ID Manager: <code>1362467716</code></p><p>Kirim pesan via Telegram dengan menyebut nama Anda dan proyek yang ingin diikuti.</p><div class="row" style="margin-top:16px"><a href="https://t.me/user?id=1362467716" target="_blank" style="text-decoration:none"><button>Buka Chat Manager</button></a><button class="secondary" onclick="$('modal').close()">Tutup</button></div>`;
+  $('modal').showModal();
+}
+
+function renderPinLock(isSetup = false) {
+  Session.page = 'pin';
+  Session.isUnlocked = false;
+  showAuthLayer(`<div class="auth-page"><div class="auth-card"><div class="auth-logo">IchiFlow<span>.</span></div><div class="auth-tag">PRODUCTION FINANCE</div><h2 class="auth-title">${isSetup?'Buat PIN Baru':'Masukkan PIN'}</h2><p class="auth-desc">${isSetup?'Anda belum memiliki PIN. Silakan buat PIN 6 digit untuk mengamankan aplikasi.':'Untuk membuka aplikasi, masukkan 6 digit PIN Anda'}</p><div id="pin-error" class="auth-error"></div><div class="pin-input" id="pin-boxes"><input type="password" maxlength="1" inputmode="numeric" data-idx="0"><input type="password" maxlength="1" inputmode="numeric" data-idx="1"><input type="password" maxlength="1" inputmode="numeric" data-idx="2"><input type="password" maxlength="1" inputmode="numeric" data-idx="3"><input type="password" maxlength="1" inputmode="numeric" data-idx="4"><input type="password" maxlength="1" inputmode="numeric" data-idx="5"></div>${isSetup?`<label>Konfirmasi PIN</label><div class="pin-input" id="pin-boxes2"><input type="password" maxlength="1" inputmode="numeric" data-idx="0"><input type="password" maxlength="1" inputmode="numeric" data-idx="1"><input type="password" maxlength="1" inputmode="numeric" data-idx="2"><input type="password" maxlength="1" inputmode="numeric" data-idx="3"><input type="password" maxlength="1" inputmode="numeric" data-idx="4"><input type="password" maxlength="1" inputmode="numeric" data-idx="5"></div>`:''}<button onclick="submitPin(${isSetup})" id="pin-submit" disabled>${isSetup?'Simpan PIN':'Buka Aplikasi'}</button><button class="secondary" onclick="goHome()" style="margin-top:10px">← Kembali ke Home</button></div></div>`);
+  const inputs = document.querySelectorAll('#pin-boxes input');
+  inputs.forEach((input, idx) => {
+    input.addEventListener('input', (e) => {
+      const v = e.target.value.replace(/\D/g, ''); e.target.value = v.slice(-1); e.target.classList.toggle('filled', !!v);
+      if (v && idx < 5) inputs[idx + 1].focus(); checkPinComplete(isSetup);
+    });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && !e.target.value && idx > 0) inputs[idx - 1].focus(); if (e.key === 'Enter') submitPin(isSetup); });
+  });
+  if(isSetup){
+    const inputs2 = document.querySelectorAll('#pin-boxes2 input');
+    inputs2.forEach((input, idx) => {
+      input.addEventListener('input', (e) => {
+        const v = e.target.value.replace(/\D/g, ''); e.target.value = v.slice(-1); e.target.classList.toggle('filled', !!v);
+        if (v && idx < 5) inputs2[idx + 1].focus(); checkPinComplete(isSetup);
+      });
+      input.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && !e.target.value && idx > 0) inputs2[idx - 1].focus(); });
+    });
+  }
+  setTimeout(() => inputs[0]?.focus(), 300);
+}
+
+function checkPinComplete(isSetup) {
+  const inputs = document.querySelectorAll('#pin-boxes input');
+  let allFilled = [...inputs].every(i => i.value.length === 1);
+  if(isSetup){
+    const inputs2 = document.querySelectorAll('#pin-boxes2 input');
+    allFilled = allFilled && [...inputs2].every(i => i.value.length === 1);
+  }
+  $('pin-submit').disabled = !allFilled;
+}
+
+function getPinValue(id) { return [...document.querySelectorAll(`#${id} input`)].map(i => i.value).join(''); }
+
+async function submitPin(isSetup) {
+  const pin = getPinValue('pin-boxes');
+  const btn = $('pin-submit'); btn.disabled = true; btn.textContent = 'Memproses...';
+  const errEl = $('pin-error'); errEl.classList.remove('show');
+  try {
+    if(isSetup){
+      const pin2 = getPinValue('pin-boxes2');
+      if(pin !== pin2) throw new Error('Konfirmasi PIN tidak sama');
+      await API.changePin('000000', pin, Session.activeProjectKey);
+      Session.isUnlocked = true; Session.lastActivity = Date.now(); notice('PIN berhasil dibuat'); await enterApp();
+    } else {
+      const res = await API.verifyPin(pin, Session.activeProjectKey);
+      if (res.ok) { Session.isUnlocked = true; Session.lastActivity = Date.now(); notice('Berhasil dibuka'); await enterApp(); }
+      else throw new Error(res.error || 'PIN salah');
+    }
+  } catch (e) {
+    btn.disabled = false; btn.textContent = isSetup?'Simpan PIN':'Buka Aplikasi';
+    errEl.textContent = e.message; errEl.classList.add('show');
+    document.querySelectorAll('#pin-boxes input, #pin-boxes2 input').forEach(i => { i.value = ''; i.classList.remove('filled'); });
+    document.querySelector('#pin-boxes input')?.focus();
+  }
+}
+
+async function loadProjectsAndShowHome() {
+  try {
+    const res = await API.getProjects();
+    Session.projects = res.projects || [];
+    renderHome();
+  } catch (e) { notice('Gagal muat proyek: ' + e.message); }
+}
+
+function renderHome() {
+  Session.page = 'home';
+  const user = Session.user || window.Telegram?.WebApp?.initDataUnsafe?.user || {};
+  const name = user.first_name || 'Pengguna';
+  const projects = Session.projects;
+  let projectCards = '';
+  if (projects.length === 0) {
+    projectCards = `<div style="text-align:center;padding:40px 20px;color:#bdcfc5"><div style="font-size:48px;margin-bottom:16px">📭</div><p>Belum ada proyek. Gabung dengan kode undangan.</p></div>`;
+  } else {
+    projectCards = projects.map(p => `<div class="project-card" onclick="openProject('${esc(p.project_key)}')"><div class="project-poster">${esc(p.name.toUpperCase())}</div><div class="project-info"><h3>${esc(p.name)}</h3><p>${esc(p.description || 'Production Finance Workspace')}</p><div class="project-meta"><span>${esc(p.role || 'member')}</span><span>${esc(p.department || '')}</span><span>✓ Aktif</span></div></div></div>`).join('');
+  }
+  showAuthLayer(`<div class="home-page"><div class="auth-header" style="padding-top:32px"><div class="logo">IchiFlow<span>.</span></div><div class="sub">PRODUCTION FINANCE</div></div><div class="home-header"><h1>Halo, ${esc(name)} 👋</h1><p>Pilih proyek untuk mulai bekerja</p></div><div class="home-body">${projectCards}<button class="btn-join" onclick="renderRegister()">+ Gabung Proyek Baru (butuh kode undangan)</button><div style="text-align:center"><span class="logout-link" onclick="logout()">Keluar / Ganti Akun</span></div></div></div>`);
+}
+
+function openProject(projectKey) {
+  Session.activeProjectKey = projectKey;
+  const proj = Session.projects.find(p => p.project_key === projectKey);
+  if (proj) {
+    $('project-title').textContent = proj.name;
+    role = proj.role === 'manager' ? 'Manager Finance' : proj.role === 'director' ? 'Direktur' : (proj.department || 'Props');
+    $('role').value = role;
+  }
+  if (Session.isUnlocked && Session.page === 'app') { render(); return; }
+  // Jika user baru pertama kali buka proyek dan pin_hash masih NULL, arahkan ke Setup PIN
+  renderPinLock(true); 
+}
+
+async function enterApp() {
+  hideAuthLayer(); Session.page = 'app';
+  if (!Store.isRemoteLoaded()) await Store.loadRemote();
+  render(); updateSyncIndicator();
+}
+
+function goHome() {
+  Session.page = 'home'; Session.isUnlocked = false;
+  loadProjectsAndShowHome();
+}
+
+function logout() {
+  Session.user = null; Session.membership = null; Session.projects = []; Session.isUnlocked = false; Session.page = 'init';
+  localStorage.removeItem('ichiflow_v3'); localStorage.removeItem('ichiflow_last_sync');
+  location.reload();
+}
+
+/* ============================================================
+   RENDER — HALAMAN APLIKASI UTAMA
    ============================================================ */
 function render(){
+  if(Session.page !== 'app') return;
   if(tg?.initDataUnsafe?.user){
     const u=tg.initDataUnsafe.user;
     const span=document.querySelector('.top .row span:not(#sync-indicator)');
@@ -1051,57 +1214,15 @@ function render(){
     const inTg=isInTelegram();
     const loaded=Store.isRemoteLoaded();
     let onlineText, onlineColor;
-    if(!inTg){
-      onlineText='● Mode Lokal (bukan dari Telegram)';
-      onlineColor='negative';
-    } else if(!loaded){
-      onlineText='⏳ Memuat data dari server...';
-      onlineColor='muted';
-    } else if(online===true){
-      onlineText='✓ Online - Tersinkron';
-      onlineColor='good';
-    } else if(online===false){
-      onlineText='⚠ Offline (mode lokal)';
-      onlineColor='negative';
-    } else {
-      onlineText='... Memeriksa';
-      onlineColor='muted';
-    }
+    if(!inTg){ onlineText='● Mode Lokal (bukan dari Telegram)'; onlineColor='negative'; }
+    else if(!loaded){ onlineText='⏳ Memuat data dari server...'; onlineColor='muted'; }
+    else if(online===true){ onlineText='✓ Online - Tersinkron'; onlineColor='good'; }
+    else if(online===false){ onlineText='⚠ Offline (mode lokal)'; onlineColor='negative'; }
+    else { onlineText='... Memeriksa'; onlineColor='muted'; }
     out=head('Pengaturan proyek','Data, sinkronisasi, dan integrasi.')
-      +`<div class="panel">
-        <h2>Status Koneksi</h2>
-        <div class="row" style="margin-bottom:12px">
-          <span class="${onlineColor}"><b>${onlineText}</b></span>
-          <button class="secondary" onclick="manualSync()" ${!inTg||!loaded?'disabled':''}>Sinkron Sekarang</button>
-          <button class="secondary" onclick="checkConnection()">Cek Koneksi</button>
-          <button class="secondary" onclick="showSyncLog()" ${!inTg?'disabled':''}>Lihat Log Sync</button>
-        </div>
-        <div class="mini">Terakhir sinkron: ${lastSync?new Date(lastSync).toLocaleString('id-ID'):'Belum pernah'}</div>
-        ${!inTg?'<div class="note-box" style="margin-top:12px"><b>Catatan:</b> Aplikasi dibuka di luar Telegram. Data disimpan lokal. Untuk sinkronisasi cloud, buka dari Mini App Telegram.</div>':''}
-        ${ConnectionStatus.lastError?`<div class="note-box" style="margin-top:12px">Error: ${esc(ConnectionStatus.lastError)}</div>`:''}
-      </div>
-      <div class="panel">
-        <h2>Film Rengasdengklok</h2>
-        <p>${DEPTS.join(' · ')} · Finance · Direktur</p>
-        <p>Versi v0.9 dengan sinkronisasi multi-device (merge anti-hilang).</p>
-        ${all()?`<div class="row">
-          <button onclick="backup()">Unduh cadangan JSON</button>
-          <label class="secondary">Pulihkan cadangan <input type="file" accept=".json" onchange="restore(this.files[0])"></label>
-          <button class="danger" onclick="if(confirm('Reset semua data lokal?')){Store.reset();render();notice('Data direset.')}">Reset data</button>
-        </div>`:''}
-      </div>
-      <div class="panel"><h2>Status pengembangan</h2>
-        ${[
-          'Akuntansi double-entry — aktif',
-          'RAB terintegrasi akuntansi — aktif',
-          'Tombol geser tabel — aktif',
-          'Sinkronisasi Cloudflare D1 — aktif',
-          'Autentikasi Telegram initData — aktif',
-          'Merge multi-device anti-hilang — aktif',
-          'RBAC server-side — belum',
-          'T-Mail online — belum'
-        ].map(s=>`<div class="lock">${s.includes('— aktif')?'✅':s.includes('— belum')?'🔒':'⚙️'} ${s}</div>`).join('')}
-      </div>
+      +`<div class="panel"><h2>Status Koneksi</h2><div class="row" style="margin-bottom:12px"><span class="${onlineColor}"><b>${onlineText}</b></span><button class="secondary" onclick="manualSync()" ${!inTg||!loaded?'disabled':''}>Sinkron Sekarang</button><button class="secondary" onclick="checkConnection()">Cek Koneksi</button><button class="secondary" onclick="showSyncLog()" ${!inTg?'disabled':''}>Lihat Log Sync</button></div><div class="mini">Terakhir sinkron: ${lastSync?new Date(lastSync).toLocaleString('id-ID'):'Belum pernah'}</div>${!inTg?'<div class="note-box" style="margin-top:12px"><b>Catatan:</b> Aplikasi dibuka di luar Telegram. Data disimpan lokal. Untuk sinkronisasi cloud, buka dari Mini App Telegram.</div>':''}${ConnectionStatus.lastError?`<div class="note-box" style="margin-top:12px">Error: ${esc(ConnectionStatus.lastError)}</div>`:''}</div>
+      <div class="panel"><h2>Akun Anda</h2><p>Nama: <b>${esc(Session.membership?.display_name||'-')}</b><br>Departemen: <b>${esc(Session.membership?.department||'-')}</b><br>Role: <b>${esc(Session.membership?.role||'-')}</b></p><div class="row"><button class="secondary" onclick="changePinUI()">Ganti PIN</button></div></div>
+      <div class="panel"><h2>Film Rengasdengklok</h2><p>${DEPTS.join(' · ')} · Finance · Direktur</p><p>Versi v1.1 dengan sinkronisasi multi-device.</p>${all()?`<div class="row"><button onclick="backup()">Unduh cadangan JSON</button><label class="secondary">Pulihkan cadangan <input type="file" accept=".json" onchange="restore(this.files[0])"></label><button class="danger" onclick="if(confirm('Reset semua data lokal?')){Store.reset();render();notice('Data direset.')}">Reset data</button></div>`:''}</div>
       ${all()?`<div class="panel"><h2>Jejak aktivitas lokal</h2>${table(['No','Waktu','Peran','Aktivitas'],Store.state.audit.slice(0,40).map((x,idx)=>`<tr><td class="no">${idx+1}</td><td>${new Date(x.time).toLocaleString('id-ID')}</td><td>${esc(x.actor)}</td><td>${esc(x.action)}</td></tr>`))}</div>`:''}`;
   }
 
@@ -1109,303 +1230,56 @@ function render(){
 }
 
 /* ============================================================
-   FUNGSI SYNC MANUAL
+   FUNGSI PENDUKUNG
    ============================================================ */
 async function manualSync(){
-  if(!isInTelegram()){
-    return notice('Buka dari Telegram untuk sinkronisasi cloud');
-  }
-  if(!Store.isRemoteLoaded()){
-    return notice('Tunggu data dari server selesai dimuat');
-  }
+  if(!isInTelegram()) return notice('Buka dari Telegram');
   notice('Menyinkronkan...');
   const ok=await Store.saveRemote();
-  if(ok){
-    notice('Berhasil sinkron ke server');
-    ConnectionStatus.online=true;
-    ConnectionStatus.lastError=null;
-  } else {
-    notice('Gagal sinkron: '+(ConnectionStatus.lastError||'tidak diketahui'));
-    ConnectionStatus.online=false;
-  }
-  ConnectionStatus.notify();
-  render();
+  if(ok) notice('Berhasil sinkron ke server');
+  else notice('Gagal sinkron');
+  ConnectionStatus.notify(); render();
 }
 
 async function checkConnection(){
-  if(!isInTelegram()){
-    ConnectionStatus.online=false;
-    ConnectionStatus.lastError='Tidak di Telegram (mode lokal)';
-    notice('Buka dari Telegram untuk cek koneksi cloud');
-    render();
-    return;
-  }
   notice('Memeriksa koneksi...');
   const online=await ConnectionStatus.check();
-  if(online){
-    notice('Koneksi OK');
-  } else {
-    notice('Offline: '+ConnectionStatus.lastError);
-  }
+  if(online) notice('Koneksi OK');
+  else notice('Offline: '+ConnectionStatus.lastError);
   render();
 }
 
 async function showSyncLog(){
-  if(!isInTelegram()){
-    return notice('Buka dari Telegram untuk lihat log');
-  }
+  if(!isInTelegram()) return notice('Buka dari Telegram');
   try{
     const res=await API.getSyncLog();
     const log=res.log || [];
-    if(!log.length){
-      return notice('Belum ada log sinkronisasi');
-    }
-    const rows=log.map((x,idx)=>`<tr>
-      <td class="no">${idx+1}</td>
-      <td>${esc(x.action)}</td>
-      <td>${x.payload_size?Math.round(x.payload_size/1024*10)/10+' KB':'—'}</td>
-      <td>${new Date(x.created_at+'Z').toLocaleString('id-ID')}</td>
-    </tr>`).join('');
+    if(!log.length) return notice('Belum ada log sinkronisasi');
+    const rows=log.map((x,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(x.action)}</td><td>${x.payload_size?Math.round(x.payload_size/1024*10)/10+' KB':'—'}</td><td>${new Date(x.created_at+'Z').toLocaleString('id-ID')}</td></tr>`).join('');
     $('modal').innerHTML=`<h2>Log Sinkronisasi</h2>${table(['No','Aksi','Ukuran','Waktu'],[rows],false)}<div class="row" style="margin-top:16px"><button class="secondary" onclick="$('modal').close()">Tutup</button></div>`;
     $('modal').showModal();
-  }catch(e){
-    notice('Gagal ambil log: '+e.message);
-  }
+  }catch(e){ notice('Gagal ambil log: '+e.message); }
 }
 
-/* ============================================================
-   HALAMAN HUTANG / PIUTANG
-   ============================================================ */
-function renderPayables(){
-  const list=Store.state.payables.slice().sort((a,b)=>b.date.localeCompare(a.date));
-  const totalOpen=sum(list.filter(x=>x.status!=='Lunas'),x=>x.remaining);
-  return `<div class="cards">
-      ${card('Total Hutang Terbuka',totalOpen,`${list.filter(x=>x.status!=='Lunas').length} belum lunas`)}
-      ${card('Total Dibayar',sum(list,x=>x.paid),'Akumulasi')}
-      ${card('Jatuh Tempo',sum(list.filter(x=>x.status!=='Lunas'&&x.dueDate&&x.dueDate<today()),x=>x.remaining),'Terlambat')}
-      ${card('Jumlah Transaksi',list.length,'Semua')}
-    </div>
-    <div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="payableForm()">+ Hutang Baru</button></div>
-    ${table(['No','Tanggal','Vendor','Deskripsi','Jatuh Tempo','Total','Dibayar','Sisa','Status','Aksi'],
-      list.map((p,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(p.date)}</td><td>${esc(p.vendor)}</td><td>${esc(p.description)}</td><td>${p.dueDate?fmtDate(p.dueDate):'—'}</td><td class="num">${money(p.amount)}</td><td class="num">${money(p.paid)}</td><td class="num"><b>${money(p.remaining)}</b></td><td>${tag(p.status)}</td><td class="actions">${p.status!=='Lunas'?`<button onclick="payPayable('${p.id}')">Bayar</button>`:''}</td></tr>`))}</div>`;
-}
-function renderReceivables(){
-  const list=Store.state.receivables.slice().sort((a,b)=>b.date.localeCompare(a.date));
-  const totalOpen=sum(list.filter(x=>x.status!=='Lunas'),x=>x.remaining);
-  return `<div class="cards">
-      ${card('Total Piutang Terbuka',totalOpen,`${list.filter(x=>x.status!=='Lunas').length} belum lunas`)}
-      ${card('Total Diterima',sum(list,x=>x.paid),'Akumulasi')}
-      ${card('Jatuh Tempo',sum(list.filter(x=>x.status!=='Lunas'&&x.dueDate&&x.dueDate<today()),x=>x.remaining),'Terlambat')}
-      ${card('Jumlah Tagihan',list.length,'Semua')}
-    </div>
-    <div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="receivableForm()">+ Piutang Baru</button></div>
-    ${table(['No','Tanggal','Klien','Deskripsi','Jatuh Tempo','Total','Diterima','Sisa','Status','Aksi'],
-      list.map((p,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(p.date)}</td><td>${esc(p.customer)}</td><td>${esc(p.description)}</td><td>${p.dueDate?fmtDate(p.dueDate):'—'}</td><td class="num">${money(p.amount)}</td><td class="num">${money(p.paid)}</td><td class="num"><b>${money(p.remaining)}</b></td><td>${tag(p.status)}</td><td class="actions">${p.status!=='Lunas'?`<button onclick="receivePayable('${p.id}')">Terima</button>`:''}</td></tr>`))}</div>`;
-}
-
-/* ============================================================
-   HALAMAN ASET TETAP
-   ============================================================ */
-function renderFixedAssets(){
-  const list=Store.state.fixedAssets.slice();
-  const totalCost=sum(list,x=>x.acquisitionCost);
-  const totalBook=sum(list,x=>Accounting.assetBookValue(x));
-  return `<div class="cards">
-      ${card('Total Perolehan',totalCost,`${list.length} aset`)}
-      ${card('Nilai Buku',totalBook,'Setelah penyusutan')}
-      ${card('Akumulasi Penyusutan',totalCost-totalBook,'Total')}
-      ${card('Penyusutan Bulanan',sum(list.filter(x=>x.isActive),x=>Accounting.monthlyDepreciation(x)),'Estimasi')}
-    </div>
-    <div class="panel">${table(['No','Kode','Nama','Kategori','Tgl Beli','Perolehan','Umur','Nilai Buku','Peny/bln','Status','Aksi'],
-      list.map((a,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(a.code)}</td><td>${esc(a.name)}</td><td>${esc(a.category)}</td><td>${fmtDate(a.acquisitionDate)}</td><td class="num">${money(a.acquisitionCost)}</td><td>${a.usefulLifeMonths}bln</td><td class="num"><b>${money(Accounting.assetBookValue(a))}</b></td><td class="num">${money(Accounting.monthlyDepreciation(a))}</td><td>${a.isActive?tag('Aktif'):tag('Batal')}</td><td class="actions"><button class="secondary" onclick="assetForm('${a.id}')">Edit</button></td></tr>`))}</div>
-    <div class="panel"><h2>Riwayat Penyusutan</h2>${table(['No','Periode','Tgl Posting','Total','Oleh'],
-      Store.state.depreciationRuns.slice().sort((a,b)=>b.period.localeCompare(a.period)).map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.period)}</td><td>${new Date(r.postedAt).toLocaleString('id-ID')}</td><td class="num">${money(r.total)}</td><td>${esc(r.postedBy)}</td></tr>`))}</div>`;
-}
-
-/* ============================================================
-   PAYROLL
-   ============================================================ */
-function renderEmployees(){
-  const list=Store.state.employees.slice();
-  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="employeeForm()">+ Karyawan</button></div>
-    ${table(['No','Nama','Posisi','Departemen','Gaji Pokok','PTKP','NPWP','Status','Aksi'],
-      list.map((e,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(e.name)}</td><td>${esc(e.position)}</td><td>${esc(e.dept)}</td><td class="num">${money(e.baseSalary)}</td><td>${esc(e.ptkpStatus)}</td><td>${e.hasNpwp?'Ya':'Tidak'}</td><td>${e.isActive?tag('Aktif'):tag('Batal')}</td><td class="actions"><button class="secondary" onclick="employeeForm('${e.id}')">Edit</button></td></tr>`))}</div>`;
-}
-function renderPayrollRun(){
-  const period=window._payrollPeriod||thisMonth();
-  return `<div class="panel">
-    <div class="row" style="margin-bottom:14px">
-      <label>Periode <input type="month" value="${esc(period)}" onchange="window._payrollPeriod=this.value;render()"></label>
-      <button onclick="runPayrollCalc()">Hitung Payroll</button>
-    </div>
-    ${window._payrollDraft?payrollDraftTable():'<p class="mini">Klik "Hitung Payroll" untuk menghitung gaji karyawan aktif.</p>'}
-  </div>`;
-}
-function payrollDraftTable(){
-  const draft=window._payrollDraft;
-  return `<h2>Draft Payroll — ${esc(draft.period)}</h2>
-    ${table(['No','Nama','Gaji Pokok','Tunjangan','Lembur','Bonus','THR','Bruto','BPJS Kes','BPJS JHT','BPJS JP','PPh 21','Total Pot','Gaji Bersih'],
-      draft.items.map((it,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(it.employeeName)}</td><td class="num">${money(it.baseSalary)}</td><td class="num">${money(it.tunjangan)}</td><td class="num">${money(it.lembur)}</td><td class="num">${money(it.bonus)}</td><td class="num">${money(it.thr)}</td><td class="num"><b>${money(it.grossTotal)}</b></td><td class="num">${money(it.bpjsKesEmployee)}</td><td class="num">${money(it.bpjsJHTEmployee)}</td><td class="num">${money(it.bpjsJPEmp)}</td><td class="num">${money(it.pph21)}</td><td class="num">${money(it.totalDeduction)}</td><td class="num"><b>${money(it.netPay)}</b></td></tr>`))}
-    <div class="row" style="margin-top:16px"><button onclick="confirmPayroll()">Finalisasi & Posting</button><button class="secondary" onclick="window._payrollDraft=null;render()">Batal</button></div>`;
-}
-function renderPayrollHistory(){
-  const list=Store.state.payrolls.slice().sort((a,b)=>b.period.localeCompare(a.period));
-  return `<div class="panel">${table(['No','Periode','Karyawan','Total Bruto','Gaji Bersih','PPh 21','Status','Aksi'],
-    list.map((p,idx)=>{
-      const g=sum(p.items,x=>x.grossTotal),n=sum(p.items,x=>x.netPay),pp=sum(p.items,x=>x.pph21);
-      return `<tr><td class="no">${idx+1}</td><td>${esc(p.period)}</td><td>${p.items.length}</td><td class="num">${money(g)}</td><td class="num">${money(n)}</td><td class="num">${money(pp)}</td><td>${tag(p.status)}</td><td class="actions"><button class="secondary" onclick="exportPayroll('${p.id}')">Ekspor CSV</button></td></tr>`;
-    }))}</div>`;
-}
-
-/* ============================================================
-   PAJAK
-   ============================================================ */
-function renderTaxPage(){
-  const period=window._taxPeriod||thisMonth();
-  const from=period+'-01',to=period+'-31';
-  const summary=Accounting.taxSummary({from,to});
-  const totalPajak=summary.pph21+summary.pph23+summary.pphFinal+summary.ppnKeluaran;
-  return `<div class="panel">
-    <div class="row" style="margin-bottom:14px">
-      <label>Periode <input type="month" value="${esc(period)}" onchange="window._taxPeriod=this.value;render()"></label>
-    </div>
-    <div class="cards">
-      ${card('PPN Masukan',summary.ppnMasukan,'Dapat dikreditkan')}
-      ${card('PPN Keluaran',summary.ppnKeluaran,'Kurang bayar: '+money(Math.max(0,summary.ppnKeluaran-summary.ppnMasukan)))}
-      ${card('PPh 21',summary.pph21,'Karyawan')}
-      ${card('PPh 23',summary.pph23,'Jasa')}
-      ${card('PPh 4(2) Final',summary.pphFinal,'Sewa tanah/bangunan')}
-      ${card('Total Setoran',totalPajak,'Untuk dilaporkan')}
-    </div>
-    <h2>Ringkasan Pajak</h2>
-    ${table(['Jenis Pajak','Jumlah'],[
-      `<tr><td>PPN Masukan</td><td class="num">${money(summary.ppnMasukan)}</td></tr>`,
-      `<tr><td>PPN Keluaran</td><td class="num">${money(summary.ppnKeluaran)}</td></tr>`,
-      `<tr><td><b>PPN Kurang/Lebih Bayar</b></td><td class="num"><b>${money(summary.ppnKeluaran-summary.ppnMasukan)}</b></td></tr>`,
-      `<tr><td>PPh 21 (Karyawan)</td><td class="num">${money(summary.pph21)}</td></tr>`,
-      `<tr><td>PPh 23 (Jasa)</td><td class="num">${money(summary.pph23)}</td></tr>`,
-      `<tr><td>PPh 4(2) Final (Sewa)</td><td class="num">${money(summary.pphFinal)}</td></tr>`,
-      `<tr><td><b>TOTAL SETORAN</b></td><td class="num"><b>${money(totalPajak)}</b></td></tr>`
-    ])}
-    <h2 style="margin-top:22px">Rincian Transaksi Pajak</h2>
-    ${table(['No','Tanggal','Jenis','Referensi','Keterangan','Jumlah'],
-      summary.details.length?summary.details.map((d,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(d.date)}</td><td>${esc(d.type)}</td><td>${esc(d.ref)}</td><td>${esc(d.desc)}</td><td class="num">${money(d.amount)}</td></tr>`):['<tr><td colspan="6" class="empty">Tidak ada transaksi pajak periode ini.</td></tr>'])}
-    <div class="note-box" style="margin-top:16px"><b>Catatan:</b> Laporan ini adalah bantu hitung, bukan perhitungan pajak resmi.</div>
-  </div>`;
-}
-
-/* ============================================================
-   REKONSILIASI BANK
-   ============================================================ */
-function renderBankUpload(){
-  const list=Store.state.bankStatements.slice().sort((a,b)=>b.uploadedAt.localeCompare(a.uploadedAt));
-  return `<div class="panel">
-    <div class="row" style="margin-bottom:14px">
-      <label class="secondary" style="padding:11px 15px;border:1px solid var(--line);border-radius:8px;cursor:pointer">Upload e-Statement CSV
-        <input type="file" accept=".csv,text/csv" style="display:none" onchange="uploadBankStatement(this.files[0])">
-      </label>
-    </div>
-    <div class="note-box"><b>Format CSV:</b> Kolom wajib: Tanggal, Keterangan, Nominal (positif = masuk, negatif = keluar).</div>
-    <h2 style="margin-top:20px">Riwayat Upload</h2>
-    ${table(['No','Waktu','File','Baris','Cocok','Tidak Cocok','Aksi'],
-      list.map((s,idx)=>`<tr><td class="no">${idx+1}</td><td>${new Date(s.uploadedAt).toLocaleString('id-ID')}</td><td>${esc(s.fileName)}</td><td>${s.rows.length}</td><td>${s.rows.filter(r=>r.matched).length}</td><td>${s.rows.filter(r=>!r.matched).length}</td><td class="actions"><button class="secondary" onclick="viewStatement('${s.id}')">Lihat</button><button class="danger" onclick="deleteStatement('${s.id}')">Hapus</button></td></tr>`))}</div>`;
-}
-function renderBankMatch(){
-  const statements=Store.state.bankStatements;
-  if(!statements.length)return '<div class="panel"><p class="mini">Upload e-Statement dulu di tab sebelumnya.</p></div>';
-  const cur=window._bankStatement||statements[0].id;
-  const st=statements.find(s=>s.id===cur);
-  if(!st)return '<div class="panel"><p>Statement tidak ditemukan.</p></div>';
-  return `<div class="panel">
-    <div class="row" style="margin-bottom:14px">
-      <label>Statement <select onchange="window._bankStatement=this.value;render()">${statements.map(s=>`<option value="${s.id}" ${s.id===cur?'selected':''}>${esc(s.fileName)}</option>`).join('')}</select></label>
-      <button onclick="runAutoMatch('${st.id}')">Jalankan Auto-Match</button>
-    </div>
-    ${table(['No','Tanggal','Keterangan','Nominal','Status','Jurnal Terkait','Aksi'],
-      st.rows.map((r,i)=>{
-        const jr=r.matchedJournalId?Store.state.journals.find(j=>j.id===r.matchedJournalId):null;
-        return `<tr class="${r.matched?'':'match-none'}"><td class="no">${i+1}</td><td>${fmtDate(r.date)}</td><td>${esc(r.description)}</td><td class="num ${r.amount>=0?'good':'negative'}">${money(r.amount)}</td><td>${r.matched?tag('Cocok'):tag('Tidak Cocok')}</td><td>${jr?`<small>${esc(jr.number)} — ${esc(jr.description.slice(0,40))}</small>`:'—'}</td><td class="actions">${!r.matched?`<button class="secondary" onclick="manualMatch('${st.id}',${i})">Cocokkan Manual</button>`:`<button class="secondary" onclick="unmatch('${st.id}',${i})">Batal</button>`}</td></tr>`;
-      }))}</div>`;
-}
-function renderBankResult(){
-  const statements=Store.state.bankStatements;
-  if(!statements.length)return '<div class="panel"><p class="mini">Belum ada data.</p></div>';
-  const totalRows=sum(statements,s=>s.rows.length);
-  const matched=sum(statements,s=>s.rows.filter(r=>r.matched).length);
-  const unmatched=totalRows-matched;
-  const totalIn=sum(statements,s=>s.rows.filter(r=>r.amount>0).reduce((a,r)=>a+r.amount,0));
-  const totalOut=sum(statements,s=>s.rows.filter(r=>r.amount<0).reduce((a,r)=>a+r.amount,0));
-  return `<div class="cards">
-      ${card('Total Baris',totalRows,`${statements.length} statement`)}
-      ${card('Cocok',matched,`${totalRows?Math.round(matched/totalRows*100):0}% match rate`)}
-      ${card('Tidak Cocok',unmatched,'Perlu investigasi')}
-      ${card('Net Kas',totalIn+totalOut,`Masuk ${money(totalIn)}`)}
-    </div>
-    <div class="panel"><h2>Rekap per Statement</h2>${table(['No','File','Baris','Cocok','Tidak Cocok','Masuk','Keluar'],
-      statements.map((s,idx)=>{
-        const m=s.rows.filter(r=>r.matched).length;
-        const tin=s.rows.filter(r=>r.amount>0).reduce((a,r)=>a+r.amount,0);
-        const tout=s.rows.filter(r=>r.amount<0).reduce((a,r)=>a+r.amount,0);
-        return `<tr><td class="no">${idx+1}</td><td>${esc(s.fileName)}</td><td>${s.rows.length}</td><td>${m}</td><td>${s.rows.length-m}</td><td class="num">${money(tin)}</td><td class="num">${money(tout)}</td></tr>`;
-      }))}</div>`;
-}
-
-/* ============================================================
-   AKUNTANSI
-   ============================================================ */
-function renderCOA(){
-  const groups={asset:'ASET',liability:'KEWAJIBAN',equity:'EKUITAS',revenue:'PENDAPATAN',expense:'BEBAN'};
-  let html='<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="accountForm()">+ Akun Baru</button></div>';
-  for(const [type,label] of Object.entries(groups)){
-    const accs=Store.state.accounts.filter(a=>a.type===type).sort((a,b)=>a.code.localeCompare(b.code));
-    if(!accs.length)continue;
-    html+=`<h2 style="margin-top:22px">${label}</h2>`+table(['No','Kode','Nama Akun','Saldo Normal','Saldo','Status','Aksi'],
-      accs.map((a,idx)=>{
-        const bal=Accounting.accountBalance(a.id);
-        return `<tr><td class="no">${idx+1}</td><td><b>${esc(a.code)}</b></td><td>${esc(a.name)}</td><td>${a.normalBalance==='debit'?'Debit':'Kredit'}</td><td class="num">${money(bal)}</td><td>${a.isActive?'<span class="tag ok">Aktif</span>':'<span class="tag wait">Nonaktif</span>'}</td><td class="actions"><button class="secondary" onclick="accountForm('${a.id}')">Edit</button><button class="secondary" onclick="toggleAccount('${a.id}')">${a.isActive?'Nonaktifkan':'Aktifkan'}</button></td></tr>`;
-      }));
-  }
-  return html+'</div>';
-}
-function renderJournal(){
-  const js=Store.state.journals.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.number.localeCompare(a.number));
-  if(!js.length)return '<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="journalForm()">+ Jurnal Manual</button></div><p class="mini">Belum ada jurnal.</p></div>';
-  const rows=js.flatMap(j=>j.lines.map((l,idx)=>{
-    const a=Accounting.accById(l.accountId);
-    return `<tr>${idx===0?`<td rowspan="${j.lines.length}" class="no"></td>`:''}${idx===0?`<td rowspan="${j.lines.length}">${esc(j.date)}<br><small>${esc(j.number)}</small></td>`:''}${idx===0?`<td rowspan="${j.lines.length}">${esc(j.description)}<br><small>${esc(j.reference||'')}</small></td>`:''}<td>${esc(a?a.code+' · '+a.name:'?')}</td><td class="num">${l.debit?money(l.debit):'—'}</td><td class="num">${l.credit?money(l.credit):'—'}</td>${idx===0?`<td rowspan="${j.lines.length}" class="actions"><button class="secondary" onclick="journalDetail('${j.id}')">Detail</button>${j.status==='posted'?`<button class="danger" onclick="reverseJournalUI('${j.id}')">Reversal</button>`:''}</td>`:''}</tr>`;
-  })).join('');
-  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="journalForm()">+ Jurnal Manual</button><button class="secondary" onclick="exportJournals()">Ekspor CSV</button></div>${table(['No','Tanggal / No','Keterangan','Akun','Debit','Kredit','Aksi'],[rows])}</div>`;
-}
-function renderLedgerPage(){
-  const sel=Store.state.accounts.slice().sort((a,b)=>a.code.localeCompare(b.code));
-  if(!sel.length)return '<div class="panel"><p>Belum ada akun.</p></div>';
-  const cur=window._ledgerAccount||sel[0].id;
-  const lg=Accounting.ledger(cur);
-  return `<div class="panel"><div class="row" style="margin-bottom:14px"><label>Akun<select onchange="window._ledgerAccount=this.value;render()">${sel.map(a=>`<option value="${a.id}" ${a.id===cur?'selected':''}>${esc(a.code)} · ${esc(a.name)}</option>`).join('')}</select></label></div>${table(['No','Tanggal','No Jurnal','Keterangan','Debit','Kredit','Saldo'],[`<tr><td class="no">—</td><td colspan="4"><i>Saldo awal</i></td><td class="num">${money(lg.opening)}</td></tr>`,...lg.rows.map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.date)}</td><td>${esc(r.number)}</td><td>${esc(r.description)}</td><td class="num">${r.debit?money(r.debit):'—'}</td><td class="num">${r.credit?money(r.credit):'—'}</td><td class="num"><b>${money(r.balance)}</b></td></tr>`),`<tr><td class="no">—</td><td colspan="4"><b>Saldo akhir</b></td><td class="num"><b>${money(lg.closing)}</b></td></tr>`])}</div>`;
-}
-function renderTrialBalance(){
-  const tb=Accounting.trialBalance();
-  const totalD=tb.reduce((s,r)=>s+r.debit,0);
-  const totalC=tb.reduce((s,r)=>s+r.credit,0);
-  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button class="secondary" onclick="window.print()">Cetak</button></div>${table(['No','Kode','Akun','Debit','Kredit'],[...tb.map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.account.code)}</td><td>${esc(r.account.name)}</td><td class="num">${r.debit?money(r.debit):'—'}</td><td class="num">${r.credit?money(r.credit):'—'}</td></tr>`),`<tr><td class="no">—</td><td colspan="2"><b>TOTAL</b></td><td class="num"><b>${money(totalD)}</b></td><td class="num"><b>${money(totalC)}</b></td></tr>`,`<tr><td colspan="5" class="${totalD===totalC?'good':'negative'}">${totalD===totalC?'✓ Balance':'✗ Tidak balance'}</td></tr>`])}</div>`;
-}
-
-/* ============================================================
-   FORM DASAR
-   ============================================================ */
-function field(label,name,value='',type='text',extra=''){return `<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" ${extra}></label>`;}
-function pick(label,name,values,value){return `<label>${label}<select name="${name}">${opts(values,value)}</select></label>`;}
-function dfield(v){return pick('Departemen','dept',all()?DEPTS:[role],v||(!all()?role:filter==='Semua'?'Props':filter));}
-function openForm(title,fields,handler){
-  $('modal').innerHTML=`<h2>${title}</h2><form id="form"><div class="grid">${fields}</div><div class="row" style="margin-top:24px"><button type="submit">Simpan</button><button type="button" class="secondary" onclick="$('modal').close()">Batal</button></div></form>`;
-  $('form').onsubmit=async e=>{e.preventDefault();try{await handler(Object.fromEntries(new FormData(e.target)));$('modal').close();}catch(err){notice(err.message);}};
+function changePinUI(){
+  $('modal').innerHTML = `<h2>Ganti PIN</h2><div class="grid"><label class="full">PIN Lama<input id="old-pin" type="password" maxlength="6" inputmode="numeric"></label><label class="full">PIN Baru<input id="new-pin" type="password" maxlength="6" inputmode="numeric"></label><label class="full">Konfirmasi PIN Baru<input id="new-pin2" type="password" maxlength="6" inputmode="numeric"></label></div><div class="row" style="margin-top:16px"><button onclick="submitChangePin()">Simpan</button><button class="secondary" onclick="$('modal').close()">Batal</button></div>`;
   $('modal').showModal();
 }
-function validAmount(n){n=Number(n);if(!Number.isSafeInteger(n)||n<=0)throw Error('Nominal harus rupiah bulat positif.');return n;}
 
-/* ============================================================
-   RAB — MANAJEMEN
-   ============================================================ */
+async function submitChangePin(){
+  const oldPin = $('old-pin').value.trim();
+  const newPin = $('new-pin').value.trim();
+  const newPin2 = $('new-pin2').value.trim();
+  if (!/^\d{6}$/.test(oldPin)) return notice('PIN lama harus 6 digit');
+  if (!/^\d{6}$/.test(newPin)) return notice('PIN baru harus 6 digit');
+  if (newPin !== newPin2) return notice('Konfirmasi PIN tidak sama');
+  try {
+    await API.changePin(oldPin, newPin, Session.activeProjectKey);
+    $('modal').close(); notice('PIN berhasil diubah');
+  } catch (e) { notice('Gagal: ' + e.message); }
+}
+
+/* Stub RAB & Fitur */
 function selectRabFile(){const input=$('rabExcelFile');if(input){input.value='';input.click();}}
 function archiveActiveRab(){const r=Store.state.rabArchives.find(x=>x.id===Store.state.activeRabId);if(!r)return;if(!confirm(`Arsipkan "${r.name}"?`))return;Store.state.activeRabId=null;save('Arsipkan RAB: '+r.name);}
 function deleteActiveRab(){const r=Store.state.rabArchives.find(x=>x.id===Store.state.activeRabId);if(!r)return;if(!confirm(`Hapus PERMANEN RAB "${r.name}"?`))return;const i=Store.state.rabArchives.findIndex(x=>x.id===r.id);Store.state.rabArchives.splice(i,1);Store.state.activeRabId=null;save('Hapus RAB: '+r.name);}
@@ -1464,9 +1338,237 @@ function budgetForm(id){
     });
 }
 
-/* ============================================================
-   RAB — IMPORT
-   ============================================================ */
+function renderPayables(){
+  const list=Store.state.payables.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const totalOpen=sum(list.filter(x=>x.status!=='Lunas'),x=>x.remaining);
+  return `<div class="cards">
+      ${card('Total Hutang Terbuka',totalOpen,`${list.filter(x=>x.status!=='Lunas').length} belum lunas`)}
+      ${card('Total Dibayar',sum(list,x=>x.paid),'Akumulasi')}
+      ${card('Jatuh Tempo',sum(list.filter(x=>x.status!=='Lunas'&&x.dueDate&&x.dueDate<today()),x=>x.remaining),'Terlambat')}
+      ${card('Jumlah Transaksi',list.length,'Semua')}
+    </div>
+    <div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="payableForm()">+ Hutang Baru</button></div>
+    ${table(['No','Tanggal','Vendor','Deskripsi','Jatuh Tempo','Total','Dibayar','Sisa','Status','Aksi'],
+      list.map((p,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(p.date)}</td><td>${esc(p.vendor)}</td><td>${esc(p.description)}</td><td>${p.dueDate?fmtDate(p.dueDate):'—'}</td><td class="num">${money(p.amount)}</td><td class="num">${money(p.paid)}</td><td class="num"><b>${money(p.remaining)}</b></td><td>${tag(p.status)}</td><td class="actions">${p.status!=='Lunas'?`<button onclick="payPayable('${p.id}')">Bayar</button>`:''}</td></tr>`))}</div>`;
+}
+function renderReceivables(){
+  const list=Store.state.receivables.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const totalOpen=sum(list.filter(x=>x.status!=='Lunas'),x=>x.remaining);
+  return `<div class="cards">
+      ${card('Total Piutang Terbuka',totalOpen,`${list.filter(x=>x.status!=='Lunas').length} belum lunas`)}
+      ${card('Total Diterima',sum(list,x=>x.paid),'Akumulasi')}
+      ${card('Jatuh Tempo',sum(list.filter(x=>x.status!=='Lunas'&&x.dueDate&&x.dueDate<today()),x=>x.remaining),'Terlambat')}
+      ${card('Jumlah Tagihan',list.length,'Semua')}
+    </div>
+    <div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="receivableForm()">+ Piutang Baru</button></div>
+    ${table(['No','Tanggal','Klien','Deskripsi','Jatuh Tempo','Total','Diterima','Sisa','Status','Aksi'],
+      list.map((p,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(p.date)}</td><td>${esc(p.customer)}</td><td>${esc(p.description)}</td><td>${p.dueDate?fmtDate(p.dueDate):'—'}</td><td class="num">${money(p.amount)}</td><td class="num">${money(p.paid)}</td><td class="num"><b>${money(p.remaining)}</b></td><td>${tag(p.status)}</td><td class="actions">${p.status!=='Lunas'?`<button onclick="receivePayable('${p.id}')">Terima</button>`:''}</td></tr>`))}</div>`;
+}
+
+function renderFixedAssets(){
+  const list=Store.state.fixedAssets.slice();
+  const totalCost=sum(list,x=>x.acquisitionCost);
+  const totalBook=sum(list,x=>Accounting.assetBookValue(x));
+  return `<div class="cards">
+      ${card('Total Perolehan',totalCost,`${list.length} aset`)}
+      ${card('Nilai Buku',totalBook,'Setelah penyusutan')}
+      ${card('Akumulasi Penyusutan',totalCost-totalBook,'Total')}
+      ${card('Penyusutan Bulanan',sum(list.filter(x=>x.isActive),x=>Accounting.monthlyDepreciation(x)),'Estimasi')}
+    </div>
+    <div class="panel">${table(['No','Kode','Nama','Kategori','Tgl Beli','Perolehan','Umur','Nilai Buku','Peny/bln','Status','Aksi'],
+      list.map((a,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(a.code)}</td><td>${esc(a.name)}</td><td>${esc(a.category)}</td><td>${fmtDate(a.acquisitionDate)}</td><td class="num">${money(a.acquisitionCost)}</td><td>${a.usefulLifeMonths}bln</td><td class="num"><b>${money(Accounting.assetBookValue(a))}</b></td><td class="num">${money(Accounting.monthlyDepreciation(a))}</td><td>${a.isActive?tag('Aktif'):tag('Batal')}</td><td class="actions"><button class="secondary" onclick="assetForm('${a.id}')">Edit</button></td></tr>`))}</div>
+    <div class="panel"><h2>Riwayat Penyusutan</h2>${table(['No','Periode','Tgl Posting','Total','Oleh'],
+      Store.state.depreciationRuns.slice().sort((a,b)=>b.period.localeCompare(a.period)).map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.period)}</td><td>${new Date(r.postedAt).toLocaleString('id-ID')}</td><td class="num">${money(r.total)}</td><td>${esc(r.postedBy)}</td></tr>`))}</div>`;
+}
+
+function renderEmployees(){
+  const list=Store.state.employees.slice();
+  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="employeeForm()">+ Karyawan</button></div>
+    ${table(['No','Nama','Posisi','Departemen','Gaji Pokok','PTKP','NPWP','Status','Aksi'],
+      list.map((e,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(e.name)}</td><td>${esc(e.position)}</td><td>${esc(e.dept)}</td><td class="num">${money(e.baseSalary)}</td><td>${esc(e.ptkpStatus)}</td><td>${e.hasNpwp?'Ya':'Tidak'}</td><td>${e.isActive?tag('Aktif'):tag('Batal')}</td><td class="actions"><button class="secondary" onclick="employeeForm('${e.id}')">Edit</button></td></tr>`))}</div>`;
+}
+function renderPayrollRun(){
+  const period=window._payrollPeriod||thisMonth();
+  return `<div class="panel">
+    <div class="row" style="margin-bottom:14px">
+      <label>Periode <input type="month" value="${esc(period)}" onchange="window._payrollPeriod=this.value;render()"></label>
+      <button onclick="runPayrollCalc()">Hitung Payroll</button>
+    </div>
+    ${window._payrollDraft?payrollDraftTable():'<p class="mini">Klik "Hitung Payroll" untuk menghitung gaji karyawan aktif.</p>'}
+  </div>`;
+}
+function payrollDraftTable(){
+  const draft=window._payrollDraft;
+  return `<h2>Draft Payroll — ${esc(draft.period)}</h2>
+    ${table(['No','Nama','Gaji Pokok','Tunjangan','Lembur','Bonus','THR','Bruto','BPJS Kes','BPJS JHT','BPJS JP','PPh 21','Total Pot','Gaji Bersih'],
+      draft.items.map((it,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(it.employeeName)}</td><td class="num">${money(it.baseSalary)}</td><td class="num">${money(it.tunjangan)}</td><td class="num">${money(it.lembur)}</td><td class="num">${money(it.bonus)}</td><td class="num">${money(it.thr)}</td><td class="num"><b>${money(it.grossTotal)}</b></td><td class="num">${money(it.bpjsKesEmployee)}</td><td class="num">${money(it.bpjsJHTEmployee)}</td><td class="num">${money(it.bpjsJPEmp)}</td><td class="num">${money(it.pph21)}</td><td class="num">${money(it.totalDeduction)}</td><td class="num"><b>${money(it.netPay)}</b></td></tr>`))}
+    <div class="row" style="margin-top:16px"><button onclick="confirmPayroll()">Finalisasi & Posting</button><button class="secondary" onclick="window._payrollDraft=null;render()">Batal</button></div>`;
+}
+function renderPayrollHistory(){
+  const list=Store.state.payrolls.slice().sort((a,b)=>b.period.localeCompare(a.period));
+  return `<div class="panel">${table(['No','Periode','Karyawan','Total Bruto','Gaji Bersih','PPh 21','Status','Aksi'],
+    list.map((p,idx)=>{
+      const g=sum(p.items,x=>x.grossTotal),n=sum(p.items,x=>x.netPay),pp=sum(p.items,x=>x.pph21);
+      return `<tr><td class="no">${idx+1}</td><td>${esc(p.period)}</td><td>${p.items.length}</td><td class="num">${money(g)}</td><td class="num">${money(n)}</td><td class="num">${money(pp)}</td><td>${tag(p.status)}</td><td class="actions"><button class="secondary" onclick="exportPayroll('${p.id}')">Ekspor CSV</button></td></tr>`;
+    }))}</div>`;
+}
+
+function renderTaxPage(){
+  const period=window._taxPeriod||thisMonth();
+  const from=period+'-01',to=period+'-31';
+  const summary=Accounting.taxSummary({from,to});
+  const totalPajak=summary.pph21+summary.pph23+summary.pphFinal+summary.ppnKeluaran;
+  return `<div class="panel">
+    <div class="row" style="margin-bottom:14px">
+      <label>Periode <input type="month" value="${esc(period)}" onchange="window._taxPeriod=this.value;render()"></label>
+    </div>
+    <div class="cards">
+      ${card('PPN Masukan',summary.ppnMasukan,'Dapat dikreditkan')}
+      ${card('PPN Keluaran',summary.ppnKeluaran,'Kurang bayar: '+money(Math.max(0,summary.ppnKeluaran-summary.ppnMasukan)))}
+      ${card('PPh 21',summary.pph21,'Karyawan')}
+      ${card('PPh 23',summary.pph23,'Jasa')}
+      ${card('PPh 4(2) Final',summary.pphFinal,'Sewa tanah/bangunan')}
+      ${card('Total Setoran',totalPajak,'Untuk dilaporkan')}
+    </div>
+    <h2>Ringkasan Pajak</h2>
+    ${table(['Jenis Pajak','Jumlah'],[
+      `<tr><td>PPN Masukan</td><td class="num">${money(summary.ppnMasukan)}</td></tr>`,
+      `<tr><td>PPN Keluaran</td><td class="num">${money(summary.ppnKeluaran)}</td></tr>`,
+      `<tr><td><b>PPN Kurang/Lebih Bayar</b></td><td class="num"><b>${money(summary.ppnKeluaran-summary.ppnMasukan)}</b></td></tr>`,
+      `<tr><td>PPh 21 (Karyawan)</td><td class="num">${money(summary.pph21)}</td></tr>`,
+      `<tr><td>PPh 23 (Jasa)</td><td class="num">${money(summary.pph23)}</td></tr>`,
+      `<tr><td>PPh 4(2) Final (Sewa)</td><td class="num">${money(summary.pphFinal)}</td></tr>`,
+      `<tr><td><b>TOTAL SETORAN</b></td><td class="num"><b>${money(totalPajak)}</b></td></tr>`
+    ])}
+    <h2 style="margin-top:22px">Rincian Transaksi Pajak</h2>
+    ${table(['No','Tanggal','Jenis','Referensi','Keterangan','Jumlah'],
+      summary.details.length?summary.details.map((d,idx)=>`<tr><td class="no">${idx+1}</td><td>${fmtDate(d.date)}</td><td>${esc(d.type)}</td><td>${esc(d.ref)}</td><td>${esc(d.desc)}</td><td class="num">${money(d.amount)}</td></tr>`):['<tr><td colspan="6" class="empty">Tidak ada transaksi pajak periode ini.</td></tr>'])}
+    <div class="note-box" style="margin-top:16px"><b>Catatan:</b> Laporan ini adalah bantu hitung, bukan perhitungan pajak resmi.</div>
+  </div>`;
+}
+
+function renderBankUpload(){
+  const list=Store.state.bankStatements.slice().sort((a,b)=>b.uploadedAt.localeCompare(a.uploadedAt));
+  return `<div class="panel">
+    <div class="row" style="margin-bottom:14px">
+      <label class="secondary" style="padding:11px 15px;border:1px solid var(--line);border-radius:8px;cursor:pointer">Upload e-Statement CSV
+        <input type="file" accept=".csv,text/csv" style="display:none" onchange="uploadBankStatement(this.files[0])">
+      </label>
+    </div>
+    <div class="note-box"><b>Format CSV:</b> Kolom wajib: Tanggal, Keterangan, Nominal (positif = masuk, negatif = keluar).</div>
+    <h2 style="margin-top:20px">Riwayat Upload</h2>
+    ${table(['No','Waktu','File','Baris','Cocok','Tidak Cocok','Aksi'],
+      list.map((s,idx)=>`<tr><td class="no">${idx+1}</td><td>${new Date(s.uploadedAt).toLocaleString('id-ID')}</td><td>${esc(s.fileName)}</td><td>${s.rows.length}</td><td>${s.rows.filter(r=>r.matched).length}</td><td>${s.rows.filter(r=>!r.matched).length}</td><td class="actions"><button class="secondary" onclick="viewStatement('${s.id}')">Lihat</button><button class="danger" onclick="deleteStatement('${s.id}')">Hapus</button></td></tr>`))}</div>`;
+}
+function renderBankMatch(){
+  const statements=Store.state.bankStatements;
+  if(!statements.length)return '<div class="panel"><p class="mini">Upload e-Statement dulu di tab sebelumnya.</p></div>';
+  const cur=window._bankStatement||statements[0].id;
+  const st=statements.find(s=>s.id===cur);
+  if(!st)return '<div class="panel"><p>Statement tidak ditemukan.</p></div>';
+  return `<div class="panel">
+    <div class="row" style="margin-bottom:14px">
+      <label>Statement <select onchange="window._bankStatement=this.value;render()">${statements.map(s=>`<option value="${s.id}" ${s.id===cur?'selected':''}>${esc(s.fileName)}</option>`).join('')}</select></label>
+      <button onclick="runAutoMatch('${st.id}')">Jalankan Auto-Match</button>
+    </div>
+    ${table(['No','Tanggal','Keterangan','Nominal','Status','Jurnal Terkait','Aksi'],
+      st.rows.map((r,i)=>{
+        const jr=r.matchedJournalId?Store.state.journals.find(j=>j.id===r.matchedJournalId):null;
+        return `<tr class="${r.matched?'':'match-none'}"><td class="no">${i+1}</td><td>${fmtDate(r.date)}</td><td>${esc(r.description)}</td><td class="num ${r.amount>=0?'good':'negative'}">${money(r.amount)}</td><td>${r.matched?tag('Cocok'):tag('Tidak Cocok')}</td><td>${jr?`<small>${esc(jr.number)} — ${esc(jr.description.slice(0,40))}</small>`:'—'}</td><td class="actions">${!r.matched?`<button class="secondary" onclick="manualMatch('${st.id}',${i})">Cocokkan Manual</button>`:`<button class="secondary" onclick="unmatch('${st.id}',${i})">Batal</button>`}</td></tr>`;
+      }))}</div>`;
+}
+function renderBankResult(){
+  const statements=Store.state.bankStatements;
+  if(!statements.length)return '<div class="panel"><p class="mini">Belum ada data.</p></div>';
+  const totalRows=sum(statements,s=>s.rows.length);
+  const matched=sum(statements,s=>s.rows.filter(r=>r.matched).length);
+  const unmatched=totalRows-matched;
+  const totalIn=sum(statements,s=>s.rows.filter(r=>r.amount>0).reduce((a,r)=>a+r.amount,0));
+  const totalOut=sum(statements,s=>s.rows.filter(r=>r.amount<0).reduce((a,r)=>a+r.amount,0));
+  return `<div class="cards">
+      ${card('Total Baris',totalRows,`${statements.length} statement`)}
+      ${card('Cocok',matched,`${totalRows?Math.round(matched/totalRows*100):0}% match rate`)}
+      ${card('Tidak Cocok',unmatched,'Perlu investigasi')}
+      ${card('Net Kas',totalIn+totalOut,`Masuk ${money(totalIn)}`)}
+    </div>
+    <div class="panel"><h2>Rekap per Statement</h2>${table(['No','File','Baris','Cocok','Tidak Cocok','Masuk','Keluar'],
+      statements.map((s,idx)=>{
+        const m=s.rows.filter(r=>r.matched).length;
+        const tin=s.rows.filter(r=>r.amount>0).reduce((a,r)=>a+r.amount,0);
+        const tout=s.rows.filter(r=>r.amount<0).reduce((a,r)=>a+r.amount,0);
+        return `<tr><td class="no">${idx+1}</td><td>${esc(s.fileName)}</td><td>${s.rows.length}</td><td>${m}</td><td>${s.rows.length-m}</td><td class="num">${money(tin)}</td><td class="num">${money(tout)}</td></tr>`;
+      }))}</div>`;
+}
+
+function renderCOA(){
+  const groups={asset:'ASET',liability:'KEWAJIBAN',equity:'EKUITAS',revenue:'PENDAPATAN',expense:'BEBAN'};
+  let html='<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="accountForm()">+ Akun Baru</button></div>';
+  for(const [type,label] of Object.entries(groups)){
+    const accs=Store.state.accounts.filter(a=>a.type===type).sort((a,b)=>a.code.localeCompare(b.code));
+    if(!accs.length)continue;
+    html+=`<h2 style="margin-top:22px">${label}</h2>`+table(['No','Kode','Nama Akun','Saldo Normal','Saldo','Status','Aksi'],
+      accs.map((a,idx)=>{
+        const bal=Accounting.accountBalance(a.id);
+        return `<tr><td class="no">${idx+1}</td><td><b>${esc(a.code)}</b></td><td>${esc(a.name)}</td><td>${a.normalBalance==='debit'?'Debit':'Kredit'}</td><td class="num">${money(bal)}</td><td>${a.isActive?'<span class="tag ok">Aktif</span>':'<span class="tag wait">Nonaktif</span>'}</td><td class="actions"><button class="secondary" onclick="accountForm('${a.id}')">Edit</button><button class="secondary" onclick="toggleAccount('${a.id}')">${a.isActive?'Nonaktifkan':'Aktifkan'}</button></td></tr>`;
+      }));
+  }
+  return html+'</div>';
+}
+function renderJournal(){
+  const js=Store.state.journals.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.number.localeCompare(a.number));
+  if(!js.length)return '<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="journalForm()">+ Jurnal Manual</button></div><p class="mini">Belum ada jurnal.</p></div>';
+  const rows=js.flatMap(j=>j.lines.map((l,idx)=>{
+    const a=Accounting.accById(l.accountId);
+    return `<tr>${idx===0?`<td rowspan="${j.lines.length}" class="no"></td>`:''}${idx===0?`<td rowspan="${j.lines.length}">${esc(j.date)}<br><small>${esc(j.number)}</small></td>`:''}${idx===0?`<td rowspan="${j.lines.length}">${esc(j.description)}<br><small>${esc(j.reference||'')}</small></td>`:''}<td>${esc(a?a.code+' · '+a.name:'?')}</td><td class="num">${l.debit?money(l.debit):'—'}</td><td class="num">${l.credit?money(l.credit):'—'}</td>${idx===0?`<td rowspan="${j.lines.length}" class="actions"><button class="secondary" onclick="journalDetail('${j.id}')">Detail</button>${j.status==='posted'?`<button class="danger" onclick="reverseJournalUI('${j.id}')">Reversal</button>`:''}</td>`:''}</tr>`;
+  })).join('');
+  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button onclick="journalForm()">+ Jurnal Manual</button><button class="secondary" onclick="exportJournals()">Ekspor CSV</button></div>${table(['No','Tanggal / No','Keterangan','Akun','Debit','Kredit','Aksi'],[rows])}</div>`;
+}
+function renderLedgerPage(){
+  const sel=Store.state.accounts.slice().sort((a,b)=>a.code.localeCompare(b.code));
+  if(!sel.length)return '<div class="panel"><p>Belum ada akun.</p></div>';
+  const cur=window._ledgerAccount||sel[0].id;
+  const lg=Accounting.ledger(cur);
+  return `<div class="panel"><div class="row" style="margin-bottom:14px"><label>Akun<select onchange="window._ledgerAccount=this.value;render()">${sel.map(a=>`<option value="${a.id}" ${a.id===cur?'selected':''}>${esc(a.code)} · ${esc(a.name)}</option>`).join('')}</select></label></div>${table(['No','Tanggal','No Jurnal','Keterangan','Debit','Kredit','Saldo'],[`<tr><td class="no">—</td><td colspan="4"><i>Saldo awal</i></td><td class="num">${money(lg.opening)}</td></tr>`,...lg.rows.map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.date)}</td><td>${esc(r.number)}</td><td>${esc(r.description)}</td><td class="num">${r.debit?money(r.debit):'—'}</td><td class="num">${r.credit?money(r.credit):'—'}</td><td class="num"><b>${money(r.balance)}</b></td></tr>`),`<tr><td class="no">—</td><td colspan="4"><b>Saldo akhir</b></td><td class="num"><b>${money(lg.closing)}</b></td></tr>`])}</div>`;
+}
+function renderTrialBalance(){
+  const tb=Accounting.trialBalance();
+  const totalD=tb.reduce((s,r)=>s+r.debit,0);
+  const totalC=tb.reduce((s,r)=>s+r.credit,0);
+  return `<div class="panel"><div class="row" style="margin-bottom:14px"><button class="secondary" onclick="window.print()">Cetak</button></div>${table(['No','Kode','Akun','Debit','Kredit'],[...tb.map((r,idx)=>`<tr><td class="no">${idx+1}</td><td>${esc(r.account.code)}</td><td>${esc(r.account.name)}</td><td class="num">${r.debit?money(r.debit):'—'}</td><td class="num">${r.credit?money(r.credit):'—'}</td></tr>`),`<tr><td class="no">—</td><td colspan="2"><b>TOTAL</b></td><td class="num"><b>${money(totalD)}</b></td><td class="num"><b>${money(totalC)}</b></td></tr>`,`<tr><td colspan="5" class="${totalD===totalC?'good':'negative'}">${totalD===totalC?'✓ Balance':'✗ Tidak balance'}</td></tr>`])}</div>`;
+}
+
+function field(label,name,value='',type='text',extra=''){return `<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" ${extra}></label>`;}
+function pick(label,name,values,value){return `<label>${label}<select name="${name}">${opts(values,value)}</select></label>`;}
+function dfield(v){return pick('Departemen','dept',all()?DEPTS:[role],v||(!all()?role:filter==='Semua'?'Props':filter));}
+function openForm(title,fields,handler){
+  $('modal').innerHTML=`<h2>${title}</h2><form id="form"><div class="grid">${fields}</div><div class="row" style="margin-top:24px"><button type="submit">Simpan</button><button type="button" class="secondary" onclick="$('modal').close()">Batal</button></div></form>`;
+  $('form').onsubmit=async e=>{e.preventDefault();try{await handler(Object.fromEntries(new FormData(e.target)));$('modal').close();}catch(err){notice(err.message);}};
+  $('modal').showModal();
+}
+function validAmount(n){n=Number(n);if(!Number.isSafeInteger(n)||n<=0)throw Error('Nominal harus rupiah bulat positif.');return n;}
+
+async function importRabFile(file){
+  if(!file)return;
+  try{
+    let items=[];
+    if(/\.csv$/i.test(file.name)){const text=await file.text();items=parseRabCSV(text);}
+    else if(/\.xlsx$/i.test(file.name)){items=await parseRabXlsx(file);}
+    else throw Error('Format harus .xlsx atau .csv');
+    if(!items.length)throw Error('Tidak ada baris RAB berbiaya yang bisa diimpor.');
+    const versionName=file.name.replace(/\.(xlsx|csv)$/i,'').trim();
+    const existingArchive=Store.state.rabArchives.find(r=>r.name===versionName);
+    let msg=`RAB "${versionName}" berisi ${items.length} item dengan total ${money(sum(items,total))}.`;
+    if(existingArchive)msg+=`\n\nSudah ada RAB dengan nama sama. Akan digantikan.`;
+    msg+='\n\nTambahkan ke arsip dan aktifkan?';
+    if(!confirm(msg))return;
+    if(existingArchive){const idx=Store.state.rabArchives.findIndex(r=>r.name===versionName);Store.state.rabArchives.splice(idx,1);}
+    const rab={id:uid(),name:versionName,uploadedAt:new Date().toISOString(),items:items.map(it=>({...it,status:'Draft'}))};
+    Store.state.rabArchives.push(rab);
+    Store.state.activeRabId=rab.id;
+    save(`Upload RAB: ${versionName} (${items.length} item)`);
+    notice(`RAB ${versionName} diaktifkan.`);
+  }catch(e){notice(e.message||'File gagal dibaca.');}
+}
 function parseRabCSV(text){
   const lines=text.split(/\r?\n/).filter(l=>l.trim());
   if(lines.length<2)throw Error('File kosong.');
@@ -1516,29 +1618,6 @@ function parseDelimitedLine(line,sep){
 function defaultAkun(deptVal,sumber){return AKUN_COA_MAP[deptVal]||'5100';}
 function defaultKlasifikasi(sumber,price){if(sumber==='Beli'&&price>=1000000)return 'Aset';return 'Beban';}
 function defaultPajak(sumber,item){if(sumber==='On-site'||sumber==='Beli')return 'Tanpa Pajak';if(sumber==='Sewa'&&/bangunan|tanah|rumah|ruko/i.test(item))return 'PPh 4(2) (10%)';return 'PPh 23 (2%)';}
-
-async function importRabFile(file){
-  if(!file)return;
-  try{
-    let items=[];
-    if(/\.csv$/i.test(file.name)){const text=await file.text();items=parseRabCSV(text);}
-    else if(/\.xlsx$/i.test(file.name)){items=await parseRabXlsx(file);}
-    else throw Error('Format harus .xlsx atau .csv');
-    if(!items.length)throw Error('Tidak ada baris RAB berbiaya yang bisa diimpor.');
-    const versionName=file.name.replace(/\.(xlsx|csv)$/i,'').trim();
-    const existingArchive=Store.state.rabArchives.find(r=>r.name===versionName);
-    let msg=`RAB "${versionName}" berisi ${items.length} item dengan total ${money(sum(items,total))}.`;
-    if(existingArchive)msg+=`\n\nSudah ada RAB dengan nama sama. Akan digantikan.`;
-    msg+='\n\nTambahkan ke arsip dan aktifkan?';
-    if(!confirm(msg))return;
-    if(existingArchive){const idx=Store.state.rabArchives.findIndex(r=>r.name===versionName);Store.state.rabArchives.splice(idx,1);}
-    const rab={id:uid(),name:versionName,uploadedAt:new Date().toISOString(),items:items.map(it=>({...it,status:'Draft'}))};
-    Store.state.rabArchives.push(rab);
-    Store.state.activeRabId=rab.id;
-    save(`Upload RAB: ${versionName} (${items.length} item)`);
-    notice(`RAB ${versionName} diaktifkan.`);
-  }catch(e){notice(e.message||'File gagal dibaca.');}
-}
 async function parseRabXlsx(file){
   const files=await unzipXlsx(file);
   const workbook=files.get('xl/workbook.xml'),relations=files.get('xl/_rels/workbook.xml.rels');
@@ -1641,9 +1720,6 @@ function xlsxRows(xml,shared){
   return rows;
 }
 
-/* ============================================================
-   AKSI PENGAJUAN & KAS
-   ============================================================ */
 function requestForm(){
   openForm('Ajukan kebutuhan dana',
     dfield()+field('Tanggal pengajuan','date',today(),'date','required')
@@ -1690,10 +1766,6 @@ function flowForm(requestId){
       save(`Catat ${type}: ${money(amount)}`);
     });
 }
-
-/* ============================================================
-   PENGELUARAN
-   ============================================================ */
 function expenseForm(id){
   const x=id?Store.state.expenses.find(y=>y.id===id):null;
   if(id&&(!x||x.status==='Diverifikasi'))return notice('Transaksi terverifikasi tidak dapat diedit.');
@@ -1749,10 +1821,6 @@ function receipt(id){
   if(!win)notice('Izinkan jendela baru.');
   setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
-
-/* ============================================================
-   HUTANG / PIUTANG
-   ============================================================ */
 function payableForm(){
   openForm('Catat Hutang Usaha',
     field('Tanggal','date',today(),'date','required')
@@ -1828,10 +1896,6 @@ function receivePayable(id){
       save(`Terima piutang ${p.customer}: ${money(amount)}`);
     });
 }
-
-/* ============================================================
-   ASET TETAP
-   ============================================================ */
 function assetForm(id){
   const a=id?Store.state.fixedAssets.find(x=>x.id===id):{};
   openForm(id?'Edit Aset':'Tambah Aset Tetap',
@@ -1869,10 +1933,6 @@ function runDepreciation(){
   try{const entry=Accounting.postDepreciation(p);save(`Posting penyusutan ${p}: ${money(entry.lines[0].debit)}`);notice('Penyusutan '+p+' diposting.');}
   catch(e){notice(e.message);}
 }
-
-/* ============================================================
-   PAYROLL
-   ============================================================ */
 function employeeForm(id){
   const e=id?Store.state.employees.find(x=>x.id===id):{};
   openForm(id?'Edit Karyawan':'Tambah Karyawan',
@@ -1915,10 +1975,6 @@ function exportPayroll(id){
     ...p.items.map(it=>[p.period,it.employeeName,it.baseSalary,it.tunjangan,it.lembur,it.bonus,it.thr,it.grossTotal,it.bpjsKesEmployee,it.bpjsJHTEmployee,it.bpjsJPEmp,it.pph21,it.totalDeduction,it.netPay])];
   download('Payroll-'+p.period+'.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n'),'text/csv;charset=utf-8');
 }
-
-/* ============================================================
-   REKONSILIASI BANK
-   ============================================================ */
 async function uploadBankStatement(file){
   if(!file)return;
   try{
@@ -2019,10 +2075,6 @@ function deleteStatement(id){
   Store.state.bankStatements.splice(i,1);
   save('Hapus statement');
 }
-
-/* ============================================================
-   AKUNTANSI
-   ============================================================ */
 function accountForm(id){
   const a=id?Store.state.accounts.find(x=>x.id===id):{};
   openForm(id?'Edit Akun':'Akun Baru',
@@ -2070,10 +2122,6 @@ function journalDetail(id){
   $('modal').innerHTML=`<h2>${esc(j.number)}</h2><p>${esc(j.date)} · ${esc(j.description)}<br><small>Ref: ${esc(j.reference||'—')} · Status: ${esc(j.status)}</small></p>${table(['Akun','Keterangan','Debit','Kredit'],[lines],false)}<div class="row" style="margin-top:16px"><button class="secondary" onclick="$('modal').close()">Tutup</button></div>`;
   $('modal').showModal();
 }
-
-/* ============================================================
-   EKSPOR
-   ============================================================ */
 function exportReport(){
   const is=Accounting.incomeStatement({});
   const bs=Accounting.balanceSheet({});
@@ -2151,25 +2199,35 @@ async function restore(file){
   
   const initData = getInitData();
   console.log('[INIT] initData ada?', !!initData);
-  console.log('[INIT] initData length:', initData?.length || 0);
-  console.log('[INIT] user:', window.Telegram?.WebApp?.initDataUnsafe?.user?.first_name || 'unknown');
   
-  console.log('[INIT] Loading state from server...');
-  const loaded = await Store.loadRemote();
-  console.log('[INIT] loadRemote result:', loaded);
-  console.log('[INIT] isRemoteLoaded:', Store.isRemoteLoaded());
+  if (!initData) {
+    Session.page = 'app'; Session.isUnlocked = true; hideAuthLayer();
+    await Store.loadRemote(); render(); updateSyncIndicator(); return;
+  }
   
-  await ConnectionStatus.check();
+  Session.user = window.Telegram.WebApp.initDataUnsafe?.user || {};
   
-  render();
-  updateSyncIndicator();
-  
-  if(loaded){
-    notice('Data tersinkron dari server');
-  } else if(!initData){
-    console.log('[INIT] Mode lokal — bukan dari Telegram');
-  } else {
-    console.log('[INIT] Server kosong, pakai data lokal');
+  try {
+    const res = await API.getMemberships();
+    const memberships = res.memberships || [];
+    Session.memberships = memberships;
+    
+    const approved = memberships.find(m => m.status === 'approved');
+    const pending = memberships.find(m => m.status === 'pending');
+    
+    if (approved) {
+      Session.membership = approved;
+      await loadProjectsAndShowHome();
+    } else if (pending) {
+      Session.membership = pending;
+      renderWaiting();
+    } else {
+      renderRegister();
+    }
+  } catch (e) {
+    console.warn('[INIT] Gagal ambil membership:', e.message);
+    Session.page = 'app'; Session.isUnlocked = true; hideAuthLayer();
+    await Store.loadRemote(); render(); updateSyncIndicator();
   }
 })();
 </script></body></html>
